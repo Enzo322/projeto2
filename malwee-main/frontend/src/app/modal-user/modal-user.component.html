@@ -1,0 +1,4 @@
+<h1>Exclua um usuário</h1>
+<app-dropdown [array]="users" [idField]="'id'" [textField]="'username'"[(ngModel)]="idUser"></app-dropdown>
+<button mat-button color="primary" (click) = "deleteUser()">Deletar</button>
+<button mat-button color="primary" (click) = "idUsers()">Console</button>

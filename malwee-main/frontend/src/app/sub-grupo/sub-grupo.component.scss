@@ -1,0 +1,35 @@
+.example-form-field {
+    width: 90%;
+    padding-right: 2%;
+    padding-left: 1%;
+  }
+mat-grid-tile {
+    background: lightblue;
+    padding-left: 45%;
+    padding-bottom: 20%;
+    margin-left: 1%;
+  }
+  button{
+    cursor: pointer;
+    border: none;
+}
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+h1{
+  font-family: "Neo Sans", sans-serif;
+}
+mat-card{
+  width: 1000px;
+  text-align: left;
+  margin-left: 0.5%;
+}
+.card-hover :hover{
+  background-color: #eee;
+}

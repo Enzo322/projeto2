@@ -1,0 +1,63 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: rgb(195, 195, 195);
+}
+
+mat-card {
+    background: linear-gradient(#091e2f,#00496b,#147ab5);
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    left: 0%;
+    top: 0%;
+    min-height: 100vh;
+    position: absolute;
+    text-align: center;
+    
+}
+
+
+
+mat-form-field {
+    width: 80%;
+    font-family: 'Poppins', sans-serif;
+}
+
+mat-card-title h1{
+    font-family: 'Poppins', sans-serif;
+    text-transform: uppercase;
+}
+
+mat-card-actions{
+    text-align: center;
+}
+
+button{
+    background: transparent;
+    padding: 10px 50px;
+    border-radius: 30px;
+    color: rgb(195, 195, 195);
+    text-transform: uppercase;
+    border:2px solid black;
+    margin: 20px;
+    cursor: pointer;
+    transition: ease-in-out .25s;
+}
+
+button:hover{
+    background: #094a80;
+}
+
+mat-card-content{
+    width: 350px;
+    background: rgba(1, 1, 26, 0.5);
+    border-radius: 20% 0;
+    box-shadow: 1px 2px 20px #000, 2px 6px 10px #000;
+    padding: 50px 20px;
+}
+

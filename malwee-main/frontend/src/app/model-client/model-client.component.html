@@ -1,0 +1,68 @@
+<mat-card-content *ngIf="divs == 1">
+    <div class="title">
+        <div>
+            <h1 mat-dialog-title>Editar</h1>
+        </div>
+        <button (click) = "onNoClick()"><mat-icon>clear</mat-icon></button>
+    </div>
+    
+    <div mat-dialog-content>
+        <div class="edit">
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Nome Fantasia</mat-label>
+                    <input matInput placeholder="digite o novo nome" [(ngModel)]="nomeFantasia">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Razão Social</mat-label>
+                    <input matInput placeholder="Digite a nova razão social" [(ngModel)]="razao">
+                </mat-form-field>
+
+                <div mat-dialog-actions>
+                    <button mat-raised-button (click) = putItens()>Editar</button>
+                    <button mat-raised-button (click)="deleteItens()">Apagar</button>
+                </div>
+        </div>
+    </div>
+</mat-card-content>
+
+<mat-card-content *ngIf="divs == 2">
+    <div class="title">
+        <div>
+            <h1 mat-dialog-title>Novo Cliente</h1>
+        </div>
+        <button (click) = "onNoClick()"><mat-icon>clear</mat-icon></button>
+    </div>
+    <div mat-dialog-content>
+        <div class="create">
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Nome Fantasia</mat-label>
+                    <input matInput placeholder="Digite seu nome fantasia" [(ngModel)]="nomeFantasia">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Razão Social</mat-label>
+                    <input matInput placeholder="Digite a razão social" [(ngModel)]="razao">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>cnpj</mat-label>
+                    <input matInput placeholder="Digite seu CNPJ" [(ngModel)]="cnpj">
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Data Cliente</mat-label>
+                    <input matInput [matDatepicker]="picker">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+                  </mat-form-field>
+
+                <div mat-dialog-actions>
+                    <button mat-raised-button (click) = "postClient()">Confirmar</button>
+                    <button mat-raised-button (click)="onNoClick()">Cancelar</button>
+                </div>
+
+        </div>
+    </div>
+</mat-card-content>

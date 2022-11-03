@@ -1,0 +1,17 @@
+button{
+    cursor: pointer;
+    border: none;
+}
+.example-form-field {
+    width: 90%;
+    padding-right: 2%;
+    padding-left: 1%;
+}
+mat-card{
+    width: 1100px;
+    text-align: left;
+    margin-left: 0.5%;
+}
+.card-hover :hover{
+    background-color: #eee;
+}

@@ -1,0 +1,45 @@
+<mat-card-content *ngIf="divs == 1">
+    <div class="title">
+        <div>
+            <h1 mat-dialog-title>Editar</h1>
+        </div>
+        <button (click) = "onNoClick()"><mat-icon>clear</mat-icon></button>
+    </div>
+    
+    <div mat-dialog-content>
+        <div class="edit">
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>grupo</mat-label>
+                    <input matInput placeholder="Ex. Short" [(ngModel)]="grupo">
+                </mat-form-field>
+
+                <div mat-dialog-actions>
+                    <button mat-raised-button (click) = putItens()>Editar</button>
+                    <button mat-raised-button (click)="deleteItens()">apagar</button>
+                </div>
+        </div>
+    </div>
+</mat-card-content>
+
+<mat-card-content *ngIf="divs == 2">
+    <div class="title">
+        <div>
+            <h1 mat-dialog-title>Novo grupo</h1>
+        </div>
+        <button (click) = "onNoClick()"><mat-icon>clear</mat-icon></button>
+    </div>
+    <div mat-dialog-content>
+        <div class="create">
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>grupo</mat-label>
+                    <input matInput placeholder="Ex. Short" [(ngModel)]="grupo">
+                </mat-form-field>
+
+                <div mat-dialog-actions>
+                    <button mat-raised-button (click) = "postGroup()">Confirmar</button>
+                    <button mat-raised-button (click)="onNoClick()">Cancelar</button>
+                </div>
+
+        </div>
+    </div>
+</mat-card-content>

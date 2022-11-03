@@ -1,0 +1,32 @@
+.cad-user{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 70vh;
+}
+.cad-user-2{
+    width: 500px;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    max-width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+  .btn{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+h2{
+    text-align: center;
+    background-color: #eee;
+    padding: 10px;
+
+}
+
+mat-form-field{
+  width: 40%;
+  padding-left: 7%;
+}
