@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { HttpService } from 'src/services/http.service';
+import { ModalAddressComponent } from '../modal-address/modal-address.component';
 
 export interface DialogData {
   nomeFantasia: string;
@@ -24,9 +25,12 @@ export class ModelClientComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<ModelClientComponent>, private httpService : HttpService,
     @Inject(MAT_DIALOG_DATA) private data : {idCliente: number, nomeFantasia : string,
-       cnpj : string, razaoSocial : string, dataClient : Date}) { }
+       cnpj : string, razaoSocial : string, dataClient : Date}, public dialog: MatDialog) { }
 
+  arrayOfId : Array<any> = [this.data.idCliente, this.data.cnpj]
+  idCliente = this.data.idCliente
   ngOnInit(): void {
+    console.log(this.arrayOfId)
     if(this.data.idCliente == null){
       this.divs = 2
     }else{
@@ -57,4 +61,14 @@ export class ModelClientComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  openModal() : any{
+    const ref = this.dialog.open(ModalAddressComponent, {
+      width: '550px',
+      data : this.arrayOfId
+    });
+
+    ref.afterClosed().subscribe(result => {
+      this.onNoClick();
+    })
+  } 
 }

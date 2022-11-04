@@ -1,3 +1,4 @@
+const { string } = require('joi');
 const Joi = require('joi');
 const knl = require('../knl');
 
@@ -6,7 +7,15 @@ knl.post('client', async(req, resp) => {
         nomeFantasia : Joi.string().min(1).max(100).required(),
         cnpj : Joi.string().min(1).max(100).required(),
         razaoSocial : Joi.string().min(1).max(100).required(),
-        dataCliente : Joi.date().raw().required()
+        dataCliente : Joi.date().raw().required(),
+        adddress : Joi.array({
+            rua : Joi.string().min(3).max(100).required(),
+            bairro : Joi.string().min(2).max(30).required(),
+            cidade : Joi.string().min(3).max(60).required(),
+            estado : Joi.string().min(3).max(20).required(),
+            cep : Joi.number().integer().required()
+        })
+        
     })
 
     knl.validate(req.body, schema);
@@ -19,14 +28,30 @@ knl.post('client', async(req, resp) => {
 
     knl.createException('0006', '', !knl.objects.isEmptyArray(result));
 
-    const user = knl.sequelize().models.Cliente.build({
+    const customer = knl.sequelize().models.Cliente.build({
         nomeFantasia : req.body.nomeFantasia,
         cnpj : req.body.cnpj,
         razaoSocial : req.body.razaoSocial,
-        dataCliente : req.body.dataCliente
+        dataCliente : req.body.dataCliente,
+        
     });
 
-    await user.save();
+    await customer.save();
+    console.log(customer.idCliente)
+    
+    for (const address of req.body.adddress){
+        const result2 = knl.sequelize().models.Endereco.build({
+            rua : address.rua,
+            bairro : address.bairro,
+            cidade : address.cidade,
+            estado : address.estado,
+            cep : address.cep,
+            fkCliente : customer.idCliente
+        })
+
+        await result2.save();        
+    }
+
     resp.end();
 });
 

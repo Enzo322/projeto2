@@ -31,6 +31,7 @@ import { ModelProdutoComponent } from './model-produto/model-produto.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { ModalUserComponent } from './modal-user/modal-user.component';
 import { ModalUserPassComponent } from './modal-user-pass/modal-user-pass.component';
+import { ModalAddressComponent } from './modal-address/modal-address.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,6 +54,7 @@ import { ModalUserPassComponent } from './modal-user-pass/modal-user-pass.compon
     DropdownComponent,
     ModalUserComponent,
     ModalUserPassComponent,
+    ModalAddressComponent,
   ],
   imports: [
     RoutesModule,
