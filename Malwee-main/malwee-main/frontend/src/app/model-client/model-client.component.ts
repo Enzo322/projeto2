@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { HttpService } from 'src/services/http.service';
-import { ModalAddressComponent } from '../modal-address/modal-address.component';
 
 export interface DialogData {
   nomeFantasia: string;
@@ -9,13 +8,15 @@ export interface DialogData {
   cnpj : string;
   razaoSocial : string;
   dataClient : Date;
+
+  
 }
 @Component({
   selector: 'app-model-client',
   templateUrl: './model-client.component.html',
   styleUrls: ['./model-client.component.scss']
 })
-export class ModelClientComponent implements OnInit {
+export class ModelClientComponent implements OnInit { 
   divs: number = 0;
   clients  : Array<any> = [];
   razao : string = '';
@@ -23,14 +24,21 @@ export class ModelClientComponent implements OnInit {
   cnpj : string = '';
   startDate : Date = new Date(2022, 0, 1);
 
+  rua: string = '';
+  bairro: string = '';
+  cidade: string = '';
+  estado: string = '';
+  complemento: string = '';
+  numero: number = 0;
+  cep : number = 0;
+  enderecos : Array<any> = [];
+  endereco : string = '';
+
   constructor(public dialogRef: MatDialogRef<ModelClientComponent>, private httpService : HttpService,
     @Inject(MAT_DIALOG_DATA) private data : {idCliente: number, nomeFantasia : string,
        cnpj : string, razaoSocial : string, dataClient : Date}, public dialog: MatDialog) { }
 
-  arrayOfId : Array<any> = [this.data.idCliente, this.data.cnpj]
-  idCliente = this.data.idCliente
   ngOnInit(): void {
-    console.log(this.arrayOfId)
     if(this.data.idCliente == null){
       this.divs = 2
     }else{
@@ -42,13 +50,24 @@ export class ModelClientComponent implements OnInit {
   }
 
   async putItens(){
-    this.clients = await this.httpService.put('client', {nomeFantasia : this.nomeFantasia, idCliente : this.data.idCliente, razaoSocial : this.razao});
+    this.clients = await this.httpService.put('client', {nomeFantasia : this.nomeFantasia, idCliente : this.data.idCliente, 
+      razaoSocial : this.razao});
     this.onNoClick();
   }
 
   async postClient(){
     this.clients = await this.httpService.post('client',{nomeFantasia : this.nomeFantasia, razaoSocial : this.razao,
-    cnpj : this.cnpj, dataCliente : this.startDate})
+    cnpj : this.cnpj, dataCliente : this.startDate, address : [
+      {
+        cep : this.cep,
+        rua : this.rua,
+        bairro : this.bairro,
+        cidade : this.cidade,
+        estado : this.estado,
+        complemento : this.complemento,
+        numero : this.numero
+      }
+    ]})
     this.onNoClick()
   }
 
@@ -57,18 +76,9 @@ export class ModelClientComponent implements OnInit {
     this.clients = await this.httpService.patch('client', {idCliente : this.data.idCliente})
     this.onNoClick()
   }
+
   onNoClick(): void {
     this.dialogRef.close();
   }
 
-  openModal() : any{
-    const ref = this.dialog.open(ModalAddressComponent, {
-      width: '550px',
-      data : this.arrayOfId
-    });
-
-    ref.afterClosed().subscribe(result => {
-      this.onNoClick();
-    })
-  } 
 }

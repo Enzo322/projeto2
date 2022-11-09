@@ -8,13 +8,16 @@ knl.post('client', async(req, resp) => {
         cnpj : Joi.string().min(1).max(100).required(),
         razaoSocial : Joi.string().min(1).max(100).required(),
         dataCliente : Joi.date().raw().required(),
-        adddress : Joi.array({
+
+        address : Joi.array().items(Joi.object({
             rua : Joi.string().min(3).max(100).required(),
             bairro : Joi.string().min(2).max(30).required(),
             cidade : Joi.string().min(3).max(60).required(),
-            estado : Joi.string().min(3).max(20).required(),
-            cep : Joi.number().integer().required()
-        })
+            estado : Joi.string().min(2).max(20).required(),
+            cep : Joi.number().integer().required(),
+            numero : Joi.number().integer().required(),
+            complemento : Joi.string().min(2).max(100).required()
+        }))
         
     })
 
@@ -37,19 +40,21 @@ knl.post('client', async(req, resp) => {
     });
 
     await customer.save();
-    console.log(customer.idCliente)
-    
-    for (const address of req.body.adddress){
+    console.log(customer)
+    for (const address of req.body.address){
         const result2 = knl.sequelize().models.Endereco.build({
             rua : address.rua,
             bairro : address.bairro,
             cidade : address.cidade,
             estado : address.estado,
             cep : address.cep,
+            complemento : address.complemento,
+            numero : address.numero,
             fkCliente : customer.idCliente
         })
 
-        await result2.save();        
+        await result2.save(); 
+        console.log(result2);       
     }
 
     resp.end();
