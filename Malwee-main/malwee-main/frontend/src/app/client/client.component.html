@@ -11,6 +11,6 @@
 
 <div class="client" *ngFor="let client of clients | filter : search ">
   <ng-template [ngIf]="client.cnpj !=0">
-    <button (click)="openModal(client)" class="card-hover"><mat-card><h1>{{client.idCliente}} - {{client.nomeFantasia}}</h1></mat-card></button>
+    <button (click)="openModal(client)" class="card-hover"><mat-card><h1>{{client.nomeFantasia}}</h1></mat-card></button>
   </ng-template>
 </div>

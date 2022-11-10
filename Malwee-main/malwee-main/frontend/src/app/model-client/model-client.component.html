@@ -1,29 +1,98 @@
 <mat-card-content *ngIf="divs == 1">
-    <div class="title">
-        <div>
-            <h1 mat-dialog-title>Editar</h1>
-        </div>
-        <button (click) = "onNoClick()"><mat-icon>clear</mat-icon></button>
-    </div>
+    <mat-tab-group>
+        <mat-tab label="Cliente">
+
+            <div class="title">
+                <div>
+                    <h1 mat-dialog-title>Editar Cliente</h1>
+                </div>
+                <button (click) = "onNoClick()"><mat-icon>clear</mat-icon></button>
+            </div>
+            
+            <div mat-dialog-content>
+                <div class="edit">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Nome Fantasia</mat-label>
+                        <input matInput placeholder="digite o novo nome" [(ngModel)]="nomeFantasia">
+                    </mat-form-field>
     
-    <div mat-dialog-content>
-        <div class="edit">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Razão Social</mat-label>
+                        <input matInput placeholder="Digite a nova razão social" [(ngModel)]="razao">
+                    </mat-form-field>
+    
+                    <div mat-dialog-actions>
+                        <button mat-raised-button (click) = putCliente()>Editar</button>
+                        <button mat-raised-button (click)="deleteItens()">Apagar</button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </mat-tab>
+
+        <mat-tab label="Endereço">
+            <div class="title">
+
+                <div>
+                    <h1 mat-dialog-title>Editar Endereço</h1>
+                </div>
+
+                <button (click) = "onNoClick()"><mat-icon>clear</mat-icon></button>
+            </div>
+            <div class="update">
                 <mat-form-field class="example-full-width" appearance="fill">
-                    <mat-label>Nome Fantasia</mat-label>
-                    <input matInput placeholder="digite o novo nome" [(ngModel)]="nomeFantasia">
+                    <mat-label>CEP</mat-label>
+                    <input matInput placeholder="Ex. 89253520" [(ngModel)]="cep">
                 </mat-form-field>
 
                 <mat-form-field class="example-full-width" appearance="fill">
-                    <mat-label>Razão Social</mat-label>
-                    <input matInput placeholder="Digite a nova razão social" [(ngModel)]="razao">
+                    <mat-label>Rua</mat-label>
+                    <input matInput placeholder="Ex. rua dos lindos" [(ngModel)]="rua">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Bairro</mat-label>
+                    <input matInput placeholder="Ex. Jaraguá Esquerdo" [(ngModel)]="bairro">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Cidade</mat-label>
+                    <input matInput placeholder="Ex. Jaraguá do Sul" [(ngModel)]="cidade">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Estado</mat-label>
+                    <input matInput placeholder="Ex. Santa Catarina" [(ngModel)]="estado">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Complemento</mat-label>
+                    <input matInput placeholder="Ex. Apartamento 2" [(ngModel)]="complemento">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Numero</mat-label>
+                    <input matInput placeholder="Ex. 115" [(ngModel)]="numero">
                 </mat-form-field>
 
                 <div mat-dialog-actions>
-                    <button mat-raised-button (click) = putItens()>Editar</button>
+                    <button mat-raised-button (click) = putAddress()>Editar</button>
                     <button mat-raised-button (click)="deleteItens()">Apagar</button>
+                    <button mat-raised-button (click)="onNoClick()">Cancelar</button>
                 </div>
+
         </div>
-    </div>
+
+        </mat-tab>
+        <mat-tab label="lista de endereços">
+            <div class="client" *ngFor="let endereco of enderecos">
+                <h1>{{endereco.rua}} - {{endereco.bairro}} - {{endereco.cidade}} - {{endereco.estado}}</h1>
+              </div>
+        </mat-tab>
+    </mat-tab-group>
+    
 </mat-card-content>
 
 <mat-card-content *ngIf="divs == 2">
@@ -48,7 +117,7 @@
         
                     <mat-form-field appearance="fill">
                         <mat-label>Data Cliente</mat-label>
-                        <input matInput [matDatepicker]="picker">
+                        <input matInput [matDatepicker]="picker" [(ngModel)]="startDate">
                         <mat-hint>MM/DD/YYYY</mat-hint>
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
@@ -101,7 +170,7 @@
                             </mat-form-field>
             
                             <div mat-dialog-actions>
-                                <button mat-raised-button (click) = "postClient()">Confirmar</button>
+                                <button mat-raised-button (click) = "addEndereco()">Confirmar</button>
                                 <button mat-raised-button (click)="onNoClick()">Cancelar</button>
                             </div>
             
@@ -110,6 +179,12 @@
             </mat-card-content>
             
 
+        </mat-tab>
+        <mat-tab label="Adicionar">
+            <div mat-dialog-actions>
+                <button mat-raised-button (click) = "postClient()">Adicionar tudo</button>
+                <button mat-raised-button (click)="onNoClick()">Cancelar</button>
+            </div>
         </mat-tab>
       </mat-tab-group>
     

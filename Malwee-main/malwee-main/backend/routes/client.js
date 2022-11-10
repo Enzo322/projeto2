@@ -10,18 +10,17 @@ knl.post('client', async(req, resp) => {
         dataCliente : Joi.date().raw().required(),
 
         address : Joi.array().items(Joi.object({
-            rua : Joi.string().min(3).max(100).required(),
-            bairro : Joi.string().min(2).max(30).required(),
-            cidade : Joi.string().min(3).max(60).required(),
-            estado : Joi.string().min(2).max(20).required(),
-            cep : Joi.number().integer().required(),
-            numero : Joi.number().integer().required(),
-            complemento : Joi.string().min(2).max(100).required()
+            rua : Joi.string().min(3).max(100),
+            bairro : Joi.string().min(2).max(30),
+            cidade : Joi.string().min(3).max(60),
+            estado : Joi.string().min(2).max(20),
+            cep : Joi.number().integer(),
+            numero : Joi.number().integer(),
+            complemento : Joi.string().min(2).max(100)
         }))
         
     })
 
-    knl.validate(req.body, schema);
 
     const result = await knl.sequelize().models.Cliente.findAll({
         where : {
@@ -66,6 +65,15 @@ knl.get('client', async(req, resp) => {
     resp.end();
 });
 
+knl.get('client/:id', async(req, resp) => {
+    const user = await knl.sequelize().models.Endereco.findAll({
+        where: {
+            fkCliente: req.params.id
+        }
+    });
+    resp.send(user);
+    resp.end();
+});
 
 knl.delete('client', async(req, resp) => {
 
@@ -74,6 +82,7 @@ knl.delete('client', async(req, resp) => {
             idCliente : req.body.idCliente
         }
     });
+    
     resp.end();
 });
 
@@ -81,15 +90,30 @@ knl.delete('client', async(req, resp) => {
 knl.put('client', async(req,resp)=>{
     const result = await knl.sequelize().models.Cliente.update({
         nomeFantasia : req.body.nomeFantasia,
-        cnpj : req.body.cnpj,
-        razaoSocial : req.body.razaoSocial,
-        dataCliente : req.body.dataCliente
+        razaoSocial : req.body.razaoSocial
     },{
         where : {
             idCliente: req.body.idCliente
         }
     })
-    resp.send(result);
+    await result.save();
+
+    for (const address of req.body.address){
+        const result2 = knl.sequelize().models.Endereco.update({
+            rua         : address.rua,
+            bairro      : address.bairro,
+            cidade      : address.cidade,
+            estado      : address.estado,
+            cep         : address.cep,
+            complemento : address.complemento,
+            numero      : address.numero
+        },{
+            where : {
+                fkCliente: result.idCliente
+            }
+        })
+        await result2.save();   
+    }
     resp.end();
 });
         

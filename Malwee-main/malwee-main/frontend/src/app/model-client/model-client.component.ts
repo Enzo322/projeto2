@@ -39,6 +39,8 @@ export class ModelClientComponent implements OnInit {
        cnpj : string, razaoSocial : string, dataClient : Date}, public dialog: MatDialog) { }
 
   ngOnInit(): void {
+    console.log(this.getAddress())
+    console.log(this.data.idCliente)
     if(this.data.idCliente == null){
       this.divs = 2
     }else{
@@ -48,37 +50,52 @@ export class ModelClientComponent implements OnInit {
       return;
     }
   }
-
-  async putItens(){
+//-------------put-------------------
+  async putCliente(){
     this.clients = await this.httpService.put('client', {nomeFantasia : this.nomeFantasia, idCliente : this.data.idCliente, 
       razaoSocial : this.razao});
     this.onNoClick();
   }
 
+  async putAddress(){
+    this.clients = await this.httpService.put('client', {rua :this.rua, bairro :this.bairro, cidade :this.cidade,
+       estado :this.estado, cep :this.cep, numero :this.numero, complemento :this.complemento, fkCliente : this.data.idCliente})
+  }
+//---------post-------------
   async postClient(){
     this.clients = await this.httpService.post('client',{nomeFantasia : this.nomeFantasia, razaoSocial : this.razao,
-    cnpj : this.cnpj, dataCliente : this.startDate, address : [
-      {
-        cep : this.cep,
-        rua : this.rua,
-        bairro : this.bairro,
-        cidade : this.cidade,
-        estado : this.estado,
-        complemento : this.complemento,
-        numero : this.numero
-      }
-    ]})
+    cnpj : this.cnpj, dataCliente : this.startDate, address: this.enderecos})
     this.onNoClick()
   }
 
+  async addEndereco(){ 
+    this.enderecos.push({'rua' :this.rua, 'bairro' :this.bairro, 'cidade' :this.cidade, 'estado':this.estado,
+      'cep' :this.cep, 'numero' :this.numero, 'complemento' :this.complemento})
+      console.log(this.enderecos);
+      this.reset();
+  }
+//----------delete----------------
   async deleteItens(){
     console.log('foi')
     this.clients = await this.httpService.patch('client', {idCliente : this.data.idCliente})
     this.onNoClick()
   }
-
+//----get-------------
+async getAddress(){
+  this.enderecos = await this.httpService.get(`client/${this.data.idCliente}`);
+}
+//--------funções alternativas----------
   onNoClick(): void {
     this.dialogRef.close();
+  }
+  reset(){
+    this.rua          = '';
+    this.bairro       = '';
+    this.cidade       = '';
+    this.estado       = '';
+    this.complemento  = '';
+    this.numero       = 0;
+    this.cep          = 0;
   }
 
 }

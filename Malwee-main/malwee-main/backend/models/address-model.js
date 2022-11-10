@@ -6,38 +6,38 @@ module.exports = (sequelize) => {
             type : Sequelize.INTEGER.UNSIGNED,
             primaryKey : true,
             autoIncrement : true,
-            allowNull : false
+            allowNull : true
         },
         rua : {
             type : Sequelize.STRING(100),
-            allowNull : false
+            allowNull : true
         },
         bairro : {
             type : Sequelize.STRING(30),
-            allowNull : false
+            allowNull : true
         },
         cidade : {
             type : Sequelize.STRING(60),
-            allowNull : false
+            allowNull : true
         },
         estado : {
             type : Sequelize.STRING(20),
-            allowNull : false
+            allowNull : true
         },
         cep : {
             type : Sequelize.INTEGER(),
-            allowNull : false
+            allowNull : true
         },
         fkCliente : {
             type : Sequelize.INTEGER()
         },
         complemento : {
             type : Sequelize.STRING(100),
-            allowNull : false
+            allowNull : true
         },
         numero : {
             type : Sequelize.INTEGER(),
-            allowNull : false
+            allowNull : true
         }
     })
 }
