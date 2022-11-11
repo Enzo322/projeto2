@@ -1,6 +1,7 @@
 const { string } = require('joi');
 const Joi = require('joi');
 const knl = require('../knl');
+const securityConsts = require('../consts/security-consts');
 
 knl.post('client', async(req, resp) => {
     const schema = Joi.object({
@@ -88,6 +89,7 @@ knl.delete('client', async(req, resp) => {
 
 
 knl.put('client', async(req,resp)=>{
+
     const result = await knl.sequelize().models.Cliente.update({
         nomeFantasia : req.body.nomeFantasia,
         razaoSocial : req.body.razaoSocial
@@ -95,8 +97,7 @@ knl.put('client', async(req,resp)=>{
         where : {
             idCliente: req.body.idCliente
         }
-    })
-    await result.save();
+    })    
 
     for (const address of req.body.address){
         const result2 = knl.sequelize().models.Endereco.update({
@@ -109,10 +110,9 @@ knl.put('client', async(req,resp)=>{
             numero      : address.numero
         },{
             where : {
-                fkCliente: result.idCliente
+                idEndereco: address.idEndereco
             }
-        })
-        await result2.save();   
+        }); 
     }
     resp.end();
 });
@@ -126,7 +126,14 @@ knl.patch('client', async(req, resp) => {
             
         }
     });
-    resp.send(result);
+    const result2 = await knl.sequelize().models.Endereco.update({
+        cep : 0
+    },{
+         where : {
+            fkCliente : req.body.idCliente,
+            
+        }
+    });
     resp.end();
 });
     

@@ -1,14 +1,15 @@
 <mat-card-content *ngIf="divs == 1">
+    <div class="title">
+        <div>
+            <h1 mat-dialog-title>Editar Cliente</h1>
+        </div>
+        <button (click) = "onNoClick()"><mat-icon>clear</mat-icon></button>
+    </div>
+    
     <mat-tab-group>
+        <!--Editar cliente-->
         <mat-tab label="Cliente">
 
-            <div class="title">
-                <div>
-                    <h1 mat-dialog-title>Editar Cliente</h1>
-                </div>
-                <button (click) = "onNoClick()"><mat-icon>clear</mat-icon></button>
-            </div>
-            
             <div mat-dialog-content>
                 <div class="edit">
                     <mat-form-field class="example-full-width" appearance="fill">
@@ -22,8 +23,8 @@
                     </mat-form-field>
     
                     <div mat-dialog-actions>
-                        <button mat-raised-button (click) = putCliente()>Editar</button>
                         <button mat-raised-button (click)="deleteItens()">Apagar</button>
+                        <button mat-raised-button (click) = onNoClick()>Cancelar</button>
                     </div>
 
                 </div>
@@ -31,16 +32,11 @@
             </div>
 
         </mat-tab>
-
+        <!--Editar endereço-->
         <mat-tab label="Endereço">
-            <div class="title">
+            <app-dropdown [array]="enderecos" [idField]="'idEndereco'"
+             [textField]="'rua'" [title]="'enderecos'" [(ngModel)]="selectedGroup"></app-dropdown> 
 
-                <div>
-                    <h1 mat-dialog-title>Editar Endereço</h1>
-                </div>
-
-                <button (click) = "onNoClick()"><mat-icon>clear</mat-icon></button>
-            </div>
             <div class="update">
                 <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label>CEP</mat-label>
@@ -78,18 +74,26 @@
                 </mat-form-field>
 
                 <div mat-dialog-actions>
-                    <button mat-raised-button (click) = putAddress()>Editar</button>
-                    <button mat-raised-button (click)="deleteItens()">Apagar</button>
                     <button mat-raised-button (click)="onNoClick()">Cancelar</button>
                 </div>
 
         </div>
 
         </mat-tab>
+        <!--Adicionar tudo-->
+        <mat-tab label="confirmar">
+            <div mat-dialog-actions>
+                <button mat-raised-button (click) = "put()">Adicionar tudo</button>
+                <button mat-raised-button (click)="onNoClick()">Cancelar</button>
+            </div>
+        </mat-tab>
+        <!--listar endereços-->
         <mat-tab label="lista de endereços">
             <div class="client" *ngFor="let endereco of enderecos">
-                <h1>{{endereco.rua}} - {{endereco.bairro}} - {{endereco.cidade}} - {{endereco.estado}}</h1>
-              </div>
+                <ng-template [ngIf]='endereco.cep != 0'>
+                    <h1>{{endereco.rua}} - {{endereco.bairro}} - {{endereco.cidade}} - {{endereco.estado}} - {{endereco.complemento}}</h1>
+                </ng-template>
+            </div>
         </mat-tab>
     </mat-tab-group>
     
@@ -97,6 +101,7 @@
 
 <mat-card-content *ngIf="divs == 2">
     <mat-tab-group>
+        <!--Adicionar cliente-->
         <mat-tab label="Cliente">
             <div mat-dialog-content>
                 <div class="create">
@@ -130,6 +135,7 @@
                 </div>
             </div>
         </mat-tab>
+        <!--Adicionar endereços-->
         <mat-tab label="Endereço">
             <mat-card-content>
                 <div mat-dialog-content>
@@ -180,6 +186,7 @@
             
 
         </mat-tab>
+        <!--Confirmar tudo-->
         <mat-tab label="Adicionar">
             <div mat-dialog-actions>
                 <button mat-raised-button (click) = "postClient()">Adicionar tudo</button>

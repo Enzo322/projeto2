@@ -8,7 +8,6 @@ export interface DialogData {
   cnpj : string;
   razaoSocial : string;
   dataClient : Date;
-
   
 }
 @Component({
@@ -34,6 +33,8 @@ export class ModelClientComponent implements OnInit {
   enderecos : Array<any> = [];
   endereco : string = '';
 
+  selectedGroup: number = 0;
+
   constructor(public dialogRef: MatDialogRef<ModelClientComponent>, private httpService : HttpService,
     @Inject(MAT_DIALOG_DATA) private data : {idCliente: number, nomeFantasia : string,
        cnpj : string, razaoSocial : string, dataClient : Date}, public dialog: MatDialog) { }
@@ -51,15 +52,26 @@ export class ModelClientComponent implements OnInit {
     }
   }
 //-------------put-------------------
-  async putCliente(){
-    this.clients = await this.httpService.put('client', {nomeFantasia : this.nomeFantasia, idCliente : this.data.idCliente, 
-      razaoSocial : this.razao});
+  async put(){
+    this.putAddress();
+
+    if(this.nomeFantasia == ''){
+      this.nomeFantasia = this.data.nomeFantasia;
+    }
+
+    if(this.razao == ''){
+      this.razao = this.data.razaoSocial;
+    }
+
+    this.clients = await this.httpService.put('client',{nomeFantasia : this.nomeFantasia, razaoSocial : this.razao,
+      address: this.enderecos, idCliente: this.data.idCliente})
+
     this.onNoClick();
   }
 
   async putAddress(){
-    this.clients = await this.httpService.put('client', {rua :this.rua, bairro :this.bairro, cidade :this.cidade,
-       estado :this.estado, cep :this.cep, numero :this.numero, complemento :this.complemento, fkCliente : this.data.idCliente})
+    this.enderecos.push({rua :this.rua, bairro :this.bairro, cidade :this.cidade,
+       estado :this.estado, cep :this.cep, numero :this.numero, complemento :this.complemento, idEndereco : this.selectedGroup})
   }
 //---------post-------------
   async postClient(){
@@ -76,7 +88,6 @@ export class ModelClientComponent implements OnInit {
   }
 //----------delete----------------
   async deleteItens(){
-    console.log('foi')
     this.clients = await this.httpService.patch('client', {idCliente : this.data.idCliente})
     this.onNoClick()
   }
