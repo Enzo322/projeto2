@@ -3,10 +3,11 @@
     padding: 0;
     box-sizing: border-box;
     color: rgb(195, 195, 195);
+    color: #000;
 }
 
 mat-card {
-    background: linear-gradient(#091e2f,#00496b,#147ab5);
+    background : linear-gradient(#59b17e, rgba(144,108,255,255));
     background-size: cover;
     display: flex;
     justify-content: center;
@@ -39,25 +40,25 @@ mat-card-actions{
 
 button{
     background: transparent;
-    padding: 10px 50px;
+    padding: 10px 40px;
     border-radius: 30px;
-    color: rgb(195, 195, 195);
+    color: black;
     text-transform: uppercase;
     border:2px solid black;
-    margin: 20px;
+    margin: 10px;
     cursor: pointer;
     transition: ease-in-out .25s;
 }
-
 button:hover{
-    background: #094a80;
+    background: white;
 }
 
 mat-card-content{
     width: 350px;
-    background: rgba(1, 1, 26, 0.5);
+    background: rgb(201, 201, 201);
+    color: #000;
     border-radius: 20% 0;
-    box-shadow: 1px 2px 20px #000, 2px 6px 10px #000;
-    padding: 50px 20px;
+    box-shadow: 1px 2px 5px rgb(78, 78, 78), 2px 3px 5px rgb(41, 41, 41);
+    padding: 50px 5px;
 }
 

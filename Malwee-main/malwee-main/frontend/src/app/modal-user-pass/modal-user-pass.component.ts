@@ -10,20 +10,24 @@ import { HttpService } from 'src/services/http.service';
 export class ModalUserPassComponent implements OnInit {
 password : string = "";
 cpassword : string = "";
+selectedGroup : number =  0
 users : Array<any> = [];
-id : number = 1;
-  constructor(public dialogRef: MatDialogRef<ModalUserPassComponent>, private HttpService : HttpService, @Inject(MAT_DIALOG_DATA) private data : {id: number, password : string}) { }
+  constructor(public dialogRef: MatDialogRef<ModalUserPassComponent>, private httpService : HttpService, @Inject(MAT_DIALOG_DATA) private data : {id: number, password : string}) { }
 
   ngOnInit(): void {
+    this.get();
   }
 
   async trocaDeSenha(){
-    this.users = await this.HttpService.put('user', {password : this.password, id : this.id})
+    this.users = await this.httpService.put('user', {password : this.password, id : this.selectedGroup})
     this.dialogRef.close();
   }
   async clear(){
     this.password = "";
     this.cpassword = "";
     this.dialogRef.close();
+  }
+  async get(){
+    this.users = await this.httpService.get('user')
   }
 }

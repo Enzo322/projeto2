@@ -1,6 +1,6 @@
 const Joi = require('joi');
 const knl = require('../knl');
-
+const { Op } = require("sequelize");
 knl.post('subGroup', async(req, resp) => {
     const schema = Joi.object({
         tipoProduto : Joi.string().min(1).max(50).required(),
@@ -19,7 +19,14 @@ knl.post('subGroup', async(req, resp) => {
 });
 
 knl.get('subGroup', async(req, resp) => {
-    const user = await knl.sequelize().models.SubGrupo.findAll();
+    const user = await knl.sequelize().models.SubGrupo.findAll({
+        where:{
+        fkGroup: {
+            [Op.ne]: 0
+          }
+        }
+            
+    });
     resp.send(user);
     resp.end();
 });

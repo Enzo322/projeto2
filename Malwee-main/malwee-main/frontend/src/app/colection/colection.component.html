@@ -10,5 +10,5 @@
 </button>
 
 <div class="colection" *ngFor="let colection of colections | filter : search ">
-    <button (click)="openModal(colection)"><mat-card><h1>{{colection.idColecao}} - {{colection.descricao}}</h1></mat-card></button>
+    <button (click)="openModal(colection)"><mat-card><h1>{{colection.descricao}}</h1></mat-card></button>
 </div>

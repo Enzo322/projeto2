@@ -37,14 +37,13 @@ knl.get('user',async(req,resp)=>{
     resp.end();
 })
 knl.patch('user', async(req, resp) => {
-    const result = await knl.sequelize().models.Usuario.destroy({
+    await knl.sequelize().models.Usuario.destroy({
         status : 0,
         where : {
             id : req.body.id
         }
     });
 
-    resp.send(result);
     resp.end();
 });
 knl.put('user', async(req,resp)=>{

@@ -10,7 +10,5 @@
 </button>
 
   <div class="subs" *ngFor="let subGrupo of subGrupos | filter : search ">
-    <ng-template [ngIf] = "subGrupo.fkGroup != 0">
       <button (click)="openModal(subGrupo)" class="card-hover"><mat-card><h1>{{subGrupo.tipoProduto}}</h1></mat-card></button>
-    </ng-template>
   </div>  

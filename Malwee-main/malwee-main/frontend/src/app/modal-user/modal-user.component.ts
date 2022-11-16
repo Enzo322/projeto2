@@ -26,8 +26,7 @@ export class ModalUserComponent implements OnInit {
   async putUser(){
     this.users = await this.HttpService.put('user',{id : this.data.id, password : this.data.password})
   }
-
-  idUsers(){
-    console.log(this.idUser)
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }

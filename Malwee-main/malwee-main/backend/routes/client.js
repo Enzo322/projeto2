@@ -77,7 +77,6 @@ knl.get('client/:id', async(req, resp) => {
 });
 
 knl.delete('client', async(req, resp) => {
-
     knl.sequelize().models.Cliente.destroy({
         where : {
             idCliente : req.body.idCliente
@@ -118,22 +117,25 @@ knl.put('client', async(req,resp)=>{
 });
         
 knl.patch('client', async(req, resp) => {
-    const result = await knl.sequelize().models.Cliente.update({
-        cnpj : 0
-    },{
-         where : {
-            idCliente : req.body.idCliente,
-            
-        }
-    });
-    const result2 = await knl.sequelize().models.Endereco.update({
-        cep : 0
-    },{
-         where : {
-            fkCliente : req.body.idCliente,
-            
-        }
-    });
+    if(req.body.idCliente == null || req.body.idCliente == undefined){
+        await knl.sequelize().models.Endereco.destroy({
+            where : {
+                idEndereco : req.body.idEndereco,
+                
+            }
+        });
+
+    }else if(req.body.idEndereco == null || req.body.idEndereco == undefined){
+        await knl.sequelize().models.Cliente.update({
+            cnpj : 0
+        },{
+            where : {
+                idCliente : req.body.idCliente,
+                
+            }
+        });
+    }
+    
     resp.end();
 });
     

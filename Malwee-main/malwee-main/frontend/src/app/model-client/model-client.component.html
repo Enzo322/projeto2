@@ -44,26 +44,6 @@
                 </mat-form-field>
 
                 <mat-form-field class="example-full-width" appearance="fill">
-                    <mat-label>Rua</mat-label>
-                    <input matInput placeholder="Ex. rua dos lindos" [(ngModel)]="rua">
-                </mat-form-field>
-
-                <mat-form-field class="example-full-width" appearance="fill">
-                    <mat-label>Bairro</mat-label>
-                    <input matInput placeholder="Ex. Jaraguá Esquerdo" [(ngModel)]="bairro">
-                </mat-form-field>
-
-                <mat-form-field class="example-full-width" appearance="fill">
-                    <mat-label>Cidade</mat-label>
-                    <input matInput placeholder="Ex. Jaraguá do Sul" [(ngModel)]="cidade">
-                </mat-form-field>
-
-                <mat-form-field class="example-full-width" appearance="fill">
-                    <mat-label>Estado</mat-label>
-                    <input matInput placeholder="Ex. Santa Catarina" [(ngModel)]="estado">
-                </mat-form-field>
-
-                <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label>Complemento</mat-label>
                     <input matInput placeholder="Ex. Apartamento 2" [(ngModel)]="complemento">
                 </mat-form-field>
@@ -74,6 +54,7 @@
                 </mat-form-field>
 
                 <div mat-dialog-actions>
+                    <button mat-raised-button (click)="deleteAddress()">Deletar</button>
                     <button mat-raised-button (click)="onNoClick()">Cancelar</button>
                 </div>
 

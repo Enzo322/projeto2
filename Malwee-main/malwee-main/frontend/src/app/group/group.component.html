@@ -10,7 +10,5 @@
 </button>
 
 <div class="groups" *ngFor="let grupo of grupos | filter : search ">
-  <ng-template [ngIf] = "grupo.status == 1">
     <button (click)="openPutModal(grupo)" class="card-hover"><mat-card><h1> {{grupo.descricao}}</h1></mat-card></button>
-  </ng-template>
 </div>  

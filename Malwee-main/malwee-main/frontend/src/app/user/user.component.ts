@@ -38,7 +38,7 @@ export class UserComponent implements OnInit {
   }
   openModal1(user : any): void {
     const ref = this.dialog.open(ModalUserPassComponent, {
-      width: '500px',
+      width: '300px',
       data: user
     });
     ref.afterClosed().subscribe(result => {

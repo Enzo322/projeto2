@@ -18,7 +18,11 @@ knl.post('group', async(req, resp) => {
 });
 
 knl.get('group', async(req, resp) => {
-    const user = await knl.sequelize().models.Grupo.findAll();
+    const user = await knl.sequelize().models.Grupo.findAll({
+        where : {
+            status : 1
+        }
+    });
     resp.send(user);
     resp.end();
 });

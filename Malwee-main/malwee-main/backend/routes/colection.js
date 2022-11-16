@@ -59,6 +59,5 @@ knl.patch('colection', async(req, resp) => {
             
         }
     });
-    resp.send(result);
     resp.end();
 });

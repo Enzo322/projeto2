@@ -91,6 +91,9 @@ export class ModelClientComponent implements OnInit {
     this.clients = await this.httpService.patch('client', {idCliente : this.data.idCliente})
     this.onNoClick()
   }
+  async deleteAddress(){
+    this.enderecos = await this.httpService.patch('client',{idEndereco : this.selectedGroup});
+  }
 //----get-------------
 async getAddress(){
   this.enderecos = await this.httpService.get(`client/${this.data.idCliente}`);
