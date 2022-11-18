@@ -8,8 +8,8 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  username : string = ''; //falta responsividade, arrumar os dropdown e fazer daquele jeito o produto
-  password : string = '';
+  username : string = 'Enzo'; //falta responsividade, arrumar os dropdown e fazer daquele jeito o produto
+  password : string = 'senha123';
   hide : boolean = true;
   isLogin : boolean = false;
 

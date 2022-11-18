@@ -19,15 +19,32 @@ knl.post('subGroup', async(req, resp) => {
 });
 
 knl.get('subGroup', async(req, resp) => {
-    const user = await knl.sequelize().models.SubGrupo.findAll({
+    let user = await knl.sequelize().models.SubGrupo.findAll({
         where:{
         fkGroup: {
             [Op.ne]: 0
           }
         }
-            
     });
-    resp.send(user);
+
+    user = knl.objects.copy(user);
+
+    if (!knl.objects.isEmptyArray(user)){
+        for(let subGrupo of user){
+            const group = await knl.sequelize().models.Grupo.findAll({
+                where : {
+                    idGrupo : subGrupo.fkGroup
+                }
+            })
+
+            if (!knl.objects.isEmptyArray(group)){
+                subGrupo.group_description = group[0].descricao
+            }
+
+            console.log(subGrupo.group_description)
+        }
+    }
+    resp.send(user)
     resp.end();
 });
 

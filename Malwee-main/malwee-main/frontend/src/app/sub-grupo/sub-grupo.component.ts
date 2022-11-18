@@ -17,6 +17,8 @@ export class SubGrupoComponent implements OnInit {
   tipoProduto : string = "";
   subGrupos : Array<any> = [];
   subGrupo : string = "";
+  grupos : Array<any> = [];
+  grupo : string = '';
   search : string = '';
   fk: number = 0;
   constructor(private http : HttpClient, private httpService : HttpService, public dialog: MatDialog) { }
@@ -37,5 +39,6 @@ export class SubGrupoComponent implements OnInit {
 
   async get(){
     this.subGrupos = await this.httpService.get('subGroup');
+    this.grupos = await this.httpService.get('group');
   }
 }

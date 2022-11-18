@@ -21,6 +21,7 @@ users : Array<any> = [];
   async trocaDeSenha(){
     this.users = await this.httpService.put('user', {password : this.password, id : this.selectedGroup})
     this.dialogRef.close();
+    window.location.href = 'http://localhost:4005/login'
   }
   async clear(){
     this.password = "";

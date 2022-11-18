@@ -9,6 +9,6 @@
   <button (click)="openModal(subGrupo)"><mat-icon>add_circle</mat-icon></button>
 </button>
 
-  <div class="subs" *ngFor="let subGrupo of subGrupos | filter : search ">
-      <button (click)="openModal(subGrupo)" class="card-hover"><mat-card><h1>{{subGrupo.tipoProduto}}</h1></mat-card></button>
+  <div class="subs" *ngFor="let subGrupo of subGrupos| filter : search">
+      <button (click)="openModal(subGrupo)" class="card-hover"><mat-card><h1>{{subGrupo.group_description}} - {{subGrupo.tipoProduto}}</h1></mat-card></button>
   </div>  

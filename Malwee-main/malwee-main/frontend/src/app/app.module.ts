@@ -33,6 +33,7 @@ import { ModalUserComponent } from './modal-user/modal-user.component';
 import { ModalUserPassComponent } from './modal-user-pass/modal-user-pass.component';
 import { ModalAddressComponent } from './modal-address/modal-address.component';
 import { ModalUserAddComponent } from './modal-user-add/modal-user-add.component';
+import { ModalDeleteComponent } from './modal-delete/modal-delete.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,6 +58,7 @@ import { ModalUserAddComponent } from './modal-user-add/modal-user-add.component
     ModalUserPassComponent,
     ModalAddressComponent,
     ModalUserAddComponent,
+    ModalDeleteComponent,
   ],
   imports: [
     RoutesModule,
