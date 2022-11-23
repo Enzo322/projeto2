@@ -8,6 +8,6 @@
   <button (click)="openModal(produto)"><mat-icon>add_circle</mat-icon></button>
 <div class="product" *ngFor="let produto of produtos | filter : search ">
   <ng-template [ngIf]="produto.fkGrupo != 0">
-    <button (click)="openModal(produto)" class="card-hover"><mat-card><h1>{{produto.descricao}}</h1></mat-card></button>
+    <button (click)="openModal(produto)" class="card-hover"><mat-card><h1>{{produto.group_description}} - {{produto.subGroup_description}} - {{produto.descricao}} - {{produto.colection_description}} - {{produto.preco}}</h1></mat-card></button>
   </ng-template>
 </div>

@@ -2,7 +2,7 @@ const { string } = require('joi');
 const Joi = require('joi');
 const knl = require('../knl');
 const securityConsts = require('../consts/security-consts');
-
+const { Op } = require("sequelize");
 knl.post('client', async(req, resp) => {
     const schema = Joi.object({
         nomeFantasia : Joi.string().min(1).max(100).required(),
@@ -11,10 +11,10 @@ knl.post('client', async(req, resp) => {
         dataCliente : Joi.date().raw().required(),
 
         address : Joi.array().items(Joi.object({
-            rua : Joi.string().min(3).max(100),
+            logradouro : Joi.string().min(3).max(100),
             bairro : Joi.string().min(2).max(30),
             cidade : Joi.string().min(3).max(60),
-            estado : Joi.string().min(2).max(20),
+            uf : Joi.string().min(2).max(20),
             cep : Joi.number().integer(),
             numero : Joi.number().integer(),
             complemento : Joi.string().min(2).max(100)
@@ -43,10 +43,10 @@ knl.post('client', async(req, resp) => {
     console.log(customer)
     for (const address of req.body.address){
         const result2 = knl.sequelize().models.Endereco.build({
-            rua : address.rua,
+            logradouro : address.logradouro,
             bairro : address.bairro,
             cidade : address.cidade,
-            estado : address.estado,
+            uf : address.uf,
             cep : address.cep,
             complemento : address.complemento,
             numero : address.numero,
@@ -61,7 +61,13 @@ knl.post('client', async(req, resp) => {
 });
 
 knl.get('client', async(req, resp) => {
-    const user = await knl.sequelize().models.Cliente.findAll();
+    const user = await knl.sequelize().models.Cliente.findAll({
+        where:{
+            idCliente: {
+                [Op.ne]: 0
+            }
+        }
+    });
     resp.send(user);
     resp.end();
 });
@@ -100,10 +106,10 @@ knl.put('client', async(req,resp)=>{
 
     for (const address of req.body.address){
         const result2 = knl.sequelize().models.Endereco.update({
-            rua         : address.rua,
+            logradouro  : address.logradouro,
             bairro      : address.bairro,
             cidade      : address.cidade,
-            estado      : address.estado,
+            uf          : address.uf,
             cep         : address.cep,
             complemento : address.complemento,
             numero      : address.numero
@@ -118,7 +124,10 @@ knl.put('client', async(req,resp)=>{
         
 knl.patch('client', async(req, resp) => {
     if(req.body.idCliente == null || req.body.idCliente == undefined){
-        await knl.sequelize().models.Endereco.destroy({
+        await knl.sequelize().models.Endereco.update({
+            idEndereco : 0
+            
+        },{
             where : {
                 idEndereco : req.body.idEndereco,
                 

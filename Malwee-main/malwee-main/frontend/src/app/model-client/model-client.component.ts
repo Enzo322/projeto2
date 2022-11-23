@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { HttpService } from 'src/services/http.service';
-
 export interface DialogData {
   nomeFantasia: string;
   idCliente: number;
@@ -23,10 +22,10 @@ export class ModelClientComponent implements OnInit {
   cnpj : string = '';
   startDate : Date = new Date(2022, 0, 1);
 
-  rua: string = '';
+  logradouro: string = '';
   bairro: string = '';
   cidade: string = '';
-  estado: string = '';
+  uf: string = '';
   complemento: string = '';
   numero: number = 0;
   cep : number = 0;
@@ -70,8 +69,8 @@ export class ModelClientComponent implements OnInit {
   }
 
   async putAddress(){
-    this.enderecos.push({rua :this.rua, bairro :this.bairro, cidade :this.cidade,
-       estado :this.estado, cep :this.cep, numero :this.numero, complemento :this.complemento, idEndereco : this.selectedGroup})
+    this.enderecos.push({logradouro :this.logradouro, bairro :this.bairro, cidade :this.cidade,
+       uf :this.uf, cep :this.cep, numero :this.numero, complemento :this.complemento, idEndereco : this.selectedGroup})
   }
 //---------post-------------
   async postClient(){
@@ -81,7 +80,7 @@ export class ModelClientComponent implements OnInit {
   }
 
   async addEndereco(){ 
-    this.enderecos.push({'rua' :this.rua, 'bairro' :this.bairro, 'cidade' :this.cidade, 'estado':this.estado,
+    this.enderecos.push({'logradouro' :this.logradouro, 'bairro' :this.bairro, 'cidade' :this.cidade, 'uf' :this.uf,
       'cep' :this.cep, 'numero' :this.numero, 'complemento' :this.complemento})
       console.log(this.enderecos);
       this.reset();
@@ -103,10 +102,10 @@ async getAddress(){
     this.dialogRef.close();
   }
   reset(){
-    this.rua          = '';
+    this.logradouro   = '';
     this.bairro       = '';
     this.cidade       = '';
-    this.estado       = '';
+    this.uf       = '';
     this.complemento  = '';
     this.numero       = 0;
     this.cep          = 0;

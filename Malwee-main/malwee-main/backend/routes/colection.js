@@ -1,6 +1,6 @@
 const Joi = require('joi');
 const knl = require('../knl');
-
+const { Op } = require("sequelize");
 knl.post('colection', async(req, resp) => {
     const schema = Joi.object({
         descricao : Joi.string().min(1).max(200).required()
@@ -25,7 +25,13 @@ knl.post('colection', async(req, resp) => {
 });
 
 knl.get('colection', async(req, resp) => {
-    const user = await knl.sequelize().models.colecao.findAll();
+    const user = await knl.sequelize().models.colecao.findAll({
+        where:{
+            idColecao: {
+                [Op.ne]: 0
+            }
+        }
+    });
     resp.send(user);
     resp.end();
 });
@@ -53,11 +59,14 @@ knl.put('colection', async(req,resp)=>{
 });
 
 knl.patch('colection', async(req, resp) => {
-    const result = await knl.sequelize().models.colecao.destroy({
-         where : {
+    const result = await knl.sequelize().models.colecao.update({
+        idColecao : 0
+    },{
+        where : {
             idColecao : req.body.idColecao,
             
         }
     });
+    resp.send(result)
     resp.end();
 });

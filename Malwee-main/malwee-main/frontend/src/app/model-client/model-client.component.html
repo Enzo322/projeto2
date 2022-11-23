@@ -35,12 +35,32 @@
         <!--Editar endereço-->
         <mat-tab label="Endereço">
             <app-dropdown [array]="enderecos" [idField]="'idEndereco'"
-             [textField]="'rua'" [title]="'enderecos'" [(ngModel)]="selectedGroup"></app-dropdown> 
+             [textField]="'logradouro'" [title]="'enderecos'" [(ngModel)]="selectedGroup"></app-dropdown> 
 
             <div class="update">
                 <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label>CEP</mat-label>
                     <input matInput placeholder="Ex. 89253520" [(ngModel)]="cep">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Rua</mat-label>
+                    <input matInput placeholder="Ex. Rua do Douglas" [(ngModel)]="logradouro">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Bairro</mat-label>
+                    <input matInput placeholder="Ex. Jaraguá Esquerdo" [(ngModel)]="bairro">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Cidade</mat-label>
+                    <input matInput placeholder="Ex. Jaraguá Esquerdo" [(ngModel)]="cidade">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Estado</mat-label>
+                    <input matInput placeholder="Ex. Apartamento 2" [(ngModel)]="uf">
                 </mat-form-field>
 
                 <mat-form-field class="example-full-width" appearance="fill">
@@ -72,7 +92,7 @@
         <mat-tab label="lista de endereços">
             <div class="client" *ngFor="let endereco of enderecos">
                 <ng-template [ngIf]='endereco.cep != 0'>
-                    <h1>{{endereco.rua}} - {{endereco.bairro}} - {{endereco.cidade}} - {{endereco.estado}} - {{endereco.complemento}}</h1>
+                    <h1>{{endereco.logradouro}} - {{endereco.bairro}} - {{endereco.cidade}} - {{endereco.uf}} - {{endereco.complemento}}</h1>
                 </ng-template>
             </div>
         </mat-tab>
@@ -128,7 +148,7 @@
 
                             <mat-form-field class="example-full-width" appearance="fill">
                                 <mat-label>Rua</mat-label>
-                                <input matInput placeholder="Ex. rua dos lindos" [(ngModel)]="rua">
+                                <input matInput placeholder="Ex. rua dos lindos" [(ngModel)]="logradouro">
                             </mat-form-field>
 
                             <mat-form-field class="example-full-width" appearance="fill">
@@ -143,7 +163,7 @@
 
                             <mat-form-field class="example-full-width" appearance="fill">
                                 <mat-label>Estado</mat-label>
-                                <input matInput placeholder="Ex. Santa Catarina" [(ngModel)]="estado">
+                                <input matInput placeholder="Ex. Santa Catarina" [(ngModel)]="uf">
                             </mat-form-field>
 
                             <mat-form-field class="example-full-width" appearance="fill">

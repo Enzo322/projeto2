@@ -38,7 +38,48 @@ knl.get('product', async(req, resp) => {
     // , {raw : true})
     
     // console.log(result)
-    const user = await knl.sequelize().models.Produto.findAll();
+    let user = await knl.sequelize().models.Produto.findAll();
+    user = knl.objects.copy(user);
+
+    if (!knl.objects.isEmptyArray(user)){
+        for(let produto of user){
+            const subGroup = await knl.sequelize().models.SubGrupo.findAll({
+                where : {
+                    idSub: produto.fkSubGrupo
+                }
+            })
+
+            if (!knl.objects.isEmptyArray(subGroup)){
+                produto.subGroup_description = subGroup[0].tipoProduto
+            }
+
+            console.log(produto.subGroup_description)
+
+            const group = await knl.sequelize().models.Grupo.findAll({
+                where : {
+                    idGrupo : produto.fkGrupo
+                }
+            })
+
+            if (!knl.objects.isEmptyArray(group)){
+                produto.group_description = group[0].descricao
+            }
+
+            console.log(produto.group_description)
+
+            const colecao = await knl.sequelize().models.colecao.findAll({
+                where : {
+                    idColecao : produto.fkColecao
+                }
+            })
+
+            if (!knl.objects.isEmptyArray(colecao)){
+                produto.colection_description = colecao[0].descricao
+            }
+
+            console.log(produto.colection_description)
+        }
+    }
     resp.send(user);
     resp.end();
 });
