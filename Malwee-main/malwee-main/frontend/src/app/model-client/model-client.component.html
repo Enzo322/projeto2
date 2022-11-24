@@ -40,7 +40,7 @@
             <div class="update">
                 <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label>CEP</mat-label>
-                    <input matInput placeholder="Ex. 89253520" [(ngModel)]="cep">
+                    <input matInput placeholder="Ex. 89253520" [(ngModel)]="cep" (blur)="consultaCep()">
                 </mat-form-field>
 
                 <mat-form-field class="example-full-width" appearance="fill">
@@ -55,7 +55,7 @@
 
                 <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label>Cidade</mat-label>
-                    <input matInput placeholder="Ex. Jaraguá Esquerdo" [(ngModel)]="cidade">
+                    <input matInput placeholder="Ex. Jaraguá Esquerdo" [(ngModel)]="localidade">
                 </mat-form-field>
 
                 <mat-form-field class="example-full-width" appearance="fill">
@@ -92,7 +92,7 @@
         <mat-tab label="lista de endereços">
             <div class="client" *ngFor="let endereco of enderecos">
                 <ng-template [ngIf]='endereco.cep != 0'>
-                    <h1>{{endereco.logradouro}} - {{endereco.bairro}} - {{endereco.cidade}} - {{endereco.uf}} - {{endereco.complemento}}</h1>
+                    <h1>{{endereco.logradouro}} - {{endereco.bairro}} - {{endereco.localidade}} - {{endereco.uf}} - {{endereco.complemento}}</h1>
                 </ng-template>
             </div>
         </mat-tab>
@@ -143,7 +143,7 @@
                     <div class="create">
                             <mat-form-field class="example-full-width" appearance="fill">
                                 <mat-label>CEP</mat-label>
-                                <input matInput placeholder="Ex. 89253520" [(ngModel)]="cep">
+                                <input matInput placeholder="Ex. 89253520" [(ngModel)]="cep" (blur)="consultaCep()">
                             </mat-form-field>
 
                             <mat-form-field class="example-full-width" appearance="fill">
@@ -158,7 +158,7 @@
 
                             <mat-form-field class="example-full-width" appearance="fill">
                                 <mat-label>Cidade</mat-label>
-                                <input matInput placeholder="Ex. Jaraguá do Sul" [(ngModel)]="cidade">
+                                <input matInput placeholder="Ex. Jaraguá do Sul" [(ngModel)]="localidade">
                             </mat-form-field>
 
                             <mat-form-field class="example-full-width" appearance="fill">

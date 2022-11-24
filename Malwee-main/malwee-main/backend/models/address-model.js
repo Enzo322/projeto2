@@ -16,7 +16,7 @@ module.exports = (sequelize) => {
             type : Sequelize.STRING(30),
             allowNull : true
         },
-        cidade : {
+        localidade : {
             type : Sequelize.STRING(60),
             allowNull : true
         },

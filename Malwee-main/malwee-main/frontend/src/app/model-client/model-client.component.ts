@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { HttpService } from 'src/services/http.service';
+import { CepServiceService } from './cep-service.service';
 export interface DialogData {
   nomeFantasia: string;
   idCliente: number;
@@ -24,7 +25,7 @@ export class ModelClientComponent implements OnInit {
 
   logradouro: string = '';
   bairro: string = '';
-  cidade: string = '';
+  localidade: string = '';
   uf: string = '';
   complemento: string = '';
   numero: number = 0;
@@ -36,7 +37,7 @@ export class ModelClientComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<ModelClientComponent>, private httpService : HttpService,
     @Inject(MAT_DIALOG_DATA) private data : {idCliente: number, nomeFantasia : string,
-       cnpj : string, razaoSocial : string, dataClient : Date}, public dialog: MatDialog) { }
+       cnpj : string, razaoSocial : string, dataClient : Date}, public dialog: MatDialog, private cepService : CepServiceService) { }
 
   ngOnInit(): void {
     console.log(this.getAddress())
@@ -49,6 +50,18 @@ export class ModelClientComponent implements OnInit {
     if (!this.data){
       return;
     }
+  }
+
+  consultaCep(){
+    this.cepService.buscar(String(this.cep)).subscribe((dados) => this.populaForm(dados));
+  }
+
+  populaForm(dados : any){
+   this.cep = dados.cep,
+   this.logradouro = dados.logradouro,
+   this.bairro = dados.bairro,
+   this.localidade = dados.localidade,
+   this.uf = dados.uf
   }
 //-------------put-------------------
   async put(){
@@ -69,7 +82,7 @@ export class ModelClientComponent implements OnInit {
   }
 
   async putAddress(){
-    this.enderecos.push({logradouro :this.logradouro, bairro :this.bairro, cidade :this.cidade,
+    this.enderecos.push({logradouro :this.logradouro, bairro :this.bairro, localidade :this.localidade,
        uf :this.uf, cep :this.cep, numero :this.numero, complemento :this.complemento, idEndereco : this.selectedGroup})
   }
 //---------post-------------
@@ -80,7 +93,7 @@ export class ModelClientComponent implements OnInit {
   }
 
   async addEndereco(){ 
-    this.enderecos.push({'logradouro' :this.logradouro, 'bairro' :this.bairro, 'cidade' :this.cidade, 'uf' :this.uf,
+    this.enderecos.push({'logradouro' :this.logradouro, 'bairro' :this.bairro, 'localidade' :this.localidade, 'uf' :this.uf,
       'cep' :this.cep, 'numero' :this.numero, 'complemento' :this.complemento})
       console.log(this.enderecos);
       this.reset();
@@ -104,8 +117,8 @@ async getAddress(){
   reset(){
     this.logradouro   = '';
     this.bairro       = '';
-    this.cidade       = '';
-    this.uf       = '';
+    this.localidade       = '';
+    this.uf           = '';
     this.complemento  = '';
     this.numero       = 0;
     this.cep          = 0;

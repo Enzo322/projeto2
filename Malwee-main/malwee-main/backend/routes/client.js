@@ -13,7 +13,7 @@ knl.post('client', async(req, resp) => {
         address : Joi.array().items(Joi.object({
             logradouro : Joi.string().min(3).max(100),
             bairro : Joi.string().min(2).max(30),
-            cidade : Joi.string().min(3).max(60),
+            localidade : Joi.string().min(3).max(60),
             uf : Joi.string().min(2).max(20),
             cep : Joi.number().integer(),
             numero : Joi.number().integer(),
@@ -45,7 +45,7 @@ knl.post('client', async(req, resp) => {
         const result2 = knl.sequelize().models.Endereco.build({
             logradouro : address.logradouro,
             bairro : address.bairro,
-            cidade : address.cidade,
+            localidade : address.localidade,
             uf : address.uf,
             cep : address.cep,
             complemento : address.complemento,
@@ -108,7 +108,7 @@ knl.put('client', async(req,resp)=>{
         const result2 = knl.sequelize().models.Endereco.update({
             logradouro  : address.logradouro,
             bairro      : address.bairro,
-            cidade      : address.cidade,
+            localidade  : address.localidade,
             uf          : address.uf,
             cep         : address.cep,
             complemento : address.complemento,
