@@ -14,8 +14,8 @@ knl.post('client', async(req, resp) => {
             logradouro : Joi.string().min(3).max(100),
             bairro : Joi.string().min(2).max(30),
             localidade : Joi.string().min(3).max(60),
-            uf : Joi.string().min(2).max(20),
-            cep : Joi.number().integer(),
+            uf : Joi.string().min(1).max(20),
+            cep : Joi.string().min(1).max(20),
             numero : Joi.number().integer(),
             complemento : Joi.string().min(2).max(100)
         }))
@@ -124,13 +124,10 @@ knl.put('client', async(req,resp)=>{
         
 knl.patch('client', async(req, resp) => {
     if(req.body.idCliente == null || req.body.idCliente == undefined){
-        await knl.sequelize().models.Endereco.update({
-            idEndereco : 0
-            
-        },{
+        console.log(req.body.idEndereco);
+        await knl.sequelize().models.Endereco.destroy({
             where : {
                 idEndereco : req.body.idEndereco,
-                
             }
         });
 

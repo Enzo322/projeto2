@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { HttpService } from 'src/services/http.service';
+import { ModelClientConfirmationComponent } from '../model-client-confirmation/model-client-confirmation.component';
 import { CepServiceService } from './cep-service.service';
 export interface DialogData {
   nomeFantasia: string;
@@ -29,7 +30,7 @@ export class ModelClientComponent implements OnInit {
   uf: string = '';
   complemento: string = '';
   numero: number = 0;
-  cep : number = 0;
+  cep : string = '';
   enderecos : Array<any> = [];
   endereco : string = '';
 
@@ -53,7 +54,7 @@ export class ModelClientComponent implements OnInit {
   }
 
   consultaCep(){
-    this.cepService.buscar(String(this.cep)).subscribe((dados) => this.populaForm(dados));
+    this.cepService.buscar(this.cep).subscribe((dados) => this.populaForm(dados));
   }
 
   populaForm(dados : any){
@@ -87,6 +88,7 @@ export class ModelClientComponent implements OnInit {
   }
 //---------post-------------
   async postClient(){
+    console.log(this.enderecos);
     this.clients = await this.httpService.post('client',{nomeFantasia : this.nomeFantasia, razaoSocial : this.razao,
     cnpj : this.cnpj, dataCliente : this.startDate, address: this.enderecos})
     this.onNoClick()
@@ -100,11 +102,14 @@ export class ModelClientComponent implements OnInit {
   }
 //----------delete----------------
   async deleteItens(){
-    this.clients = await this.httpService.patch('client', {idCliente : this.data.idCliente})
-    this.onNoClick()
+    localStorage.setItem('idCliente', `${this.data.idCliente}`)
+    this.openConfirmationModal();
+    this.onNoClick();
   }
   async deleteAddress(){
-    this.enderecos = await this.httpService.patch('client',{idEndereco : this.selectedGroup});
+    localStorage.setItem('idEndereco', `${this.selectedGroup}`)
+    this.openConfirmationModal();
+    this.onNoClick();
   }
 //----get-------------
 async getAddress(){
@@ -121,7 +126,12 @@ async getAddress(){
     this.uf           = '';
     this.complemento  = '';
     this.numero       = 0;
-    this.cep          = 0;
+    this.cep          = "";
   }
 
+  openConfirmationModal(): void {
+    const ref = this.dialog.open(ModelClientConfirmationComponent, {
+      width: '300px',
+    });
+  }
 }

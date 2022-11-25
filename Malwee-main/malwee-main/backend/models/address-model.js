@@ -25,7 +25,7 @@ module.exports = (sequelize) => {
             allowNull : true
         },
         cep : {
-            type : Sequelize.INTEGER(),
+            type : Sequelize.STRING(20),
             allowNull : true
         },
         fkCliente : {
