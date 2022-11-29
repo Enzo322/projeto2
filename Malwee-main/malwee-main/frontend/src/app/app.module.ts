@@ -35,6 +35,8 @@ import { ModalAddressComponent } from './modal-address/modal-address.component';
 import { ModalUserAddComponent } from './modal-user-add/modal-user-add.component';
 import { ModalDeleteComponent } from './modal-delete/modal-delete.component';
 import { ModelClientConfirmationComponent } from './model-client-confirmation/model-client-confirmation.component';
+import { PedidoComponent } from './pedido/pedido.component';
+import { ModalPedidoComponent } from './modal-pedido/modal-pedido.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,6 +63,8 @@ import { ModelClientConfirmationComponent } from './model-client-confirmation/mo
     ModalUserAddComponent,
     ModalDeleteComponent,
     ModelClientConfirmationComponent,
+    PedidoComponent,
+    ModalPedidoComponent,
   ],
   imports: [
     RoutesModule,
