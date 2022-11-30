@@ -10,7 +10,7 @@ knl.post('pedido', async(req, resp) => {
         fkCliente : Joi.number().required(),
         total : Joi.number().min(0.01).required(),
 
-        produtoPedido : oi.array().items(Joi.object({
+        produtoPedido : Joi.array().items(Joi.object({
             fkPedido : Joi.number().required(),
             quantidade : Joi.number().required(),
             fkProduto : Joi.number().required(),
@@ -34,23 +34,25 @@ knl.post('pedido', async(req, resp) => {
         dtEntrega : req.body.dtEntrega,
         fkEndereco : req.body.fkEndereco,
         fkCliente : req.body.fkCliente,
-        total : req.body.total
+        total : 45
         
     });
 
     await pedido.save();
     for (const produtoPedido of req.body.produtoPedido){
         const result = knl.sequelize().models.Produto_pedido.build({
-            fkPedido : produtoPedido.fkPedido,
             quantidade : produtoPedido.quantidade,
             fkProduto : produtoPedido.fkProduto,
             valorUnitario : produtoPedido.valorUnitario,
-            descricao : produtoPedido.descricao,
-            acrescimo : produtoPedido.acrescimo,
-            total : produtoPedido.total
+            acrescimo : 0.2,
+            total : parseInt(quantidade) * parseFloat(valorUnitario) * acrescimo,
+            //colocar descricao do produto usando if do fkproduto
+            descricao : "blebleble",
+            fkPedido : 1
         })
 
         await result.save();
+        resp.end();
 }});
 
 
