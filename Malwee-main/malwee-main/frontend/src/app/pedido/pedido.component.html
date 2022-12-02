@@ -1,11 +1,26 @@
-<mat-form-field class="example-form-field" appearance="fill">
-    <mat-label>Pesquisa</mat-label>
-    <input matInput type="text" placeholder="Digite um produto" [(ngModel)] = 'search'>
-    <button *ngIf="search" matSuffix mat-icon-button aria-label="Clear" (click)="search=''">
-      <mat-icon>close</mat-icon>
-    </button>
-</mat-form-field>
-  <button (click)="openModal(pedido)"><mat-icon>add_circle</mat-icon></button>
-<div class="product" *ngFor="let pedido of pedidos | filter : search ">
-    <button (click)="openModal(pedido)" class="card-hover"><mat-card><h1>{{pedido.client_description}} - {{pedido.dtEmissao}} - {{pedido.dtEntrega}}</h1></mat-card></button>
+<div class="box">
+  <mat-form-field class="example-form-field" appearance="fill">
+      <mat-label>Pesquisa</mat-label>
+      <input matInput type="text" placeholder="Digite um pedido" [(ngModel)] = 'search'>
+      <button *ngIf="search" matSuffix mat-icon-button aria-label="Clear" (click)="search=''">
+        <mat-icon>close</mat-icon>
+      </button>
+  </mat-form-field>
+    <button (click)="openModal(pedido)"><mat-icon>add_circle</mat-icon></button>
+  <table>
+    <tr>
+      <th>Número</th>
+      <th>Produto</th>
+      <th>Cliente</th>
+      <th>Data Emissão</th>
+      <th>Data Entrega</th>
+    </tr>
+    <tr  *ngFor="let pedido of pedidos  | filter : search">
+        <td (click)="openModal(pedido)">{{pedido.idPedido}}</td>
+        <td (click)="openModal(pedido)">{{pedido.produtoPedido_description}}</td>
+        <td (click)="openModal(pedido)">{{pedido.client_description}}</td>
+        <td (click)="openModal(pedido)">{{pedido.dtEmissao}}</td>
+        <td (click)="openModal(pedido)">{{pedido.dtEntrega}}</td>
+    </tr>
+  </table>
 </div>

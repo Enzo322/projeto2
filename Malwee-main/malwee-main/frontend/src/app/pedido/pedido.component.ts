@@ -18,6 +18,7 @@ export class PedidoComponent implements OnInit {
   constructor(private http : HttpClient, private httpService : HttpService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.get()
   }
 
   async get(){

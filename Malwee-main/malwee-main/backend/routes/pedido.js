@@ -66,14 +66,14 @@ knl.get('pedido', async(req, resp) => {
     user = knl.objects.copy(user);
 
     if (!knl.objects.isEmptyArray(user)){
-        for(let pedido of user){
+        for(const pedido of user){
             const produtoPedido = await knl.sequelize().models.Produto_pedido.findAll({
                 where : {
-                    idProduto_pedido: pedido.idProduto_pedido
+                    fkPedido: pedido.idPedido
                 }
             })
             if (!knl.objects.isEmptyArray(produtoPedido)){
-                produto.produtoPedido_description = produtoPedido[0].descricao
+                pedido.produtoPedido_description = produtoPedido[0].descricao
             }
             console.log(pedido.produtoPedido_description)
 

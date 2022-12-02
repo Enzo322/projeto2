@@ -1,16 +1,25 @@
-<mat-form-field class="example-form-field" appearance="fill">
-    <mat-label>Pesquisa</mat-label>
-    <input matInput type="text" placeholder="Digite um cliente" [(ngModel)] = 'search'>
-    <button *ngIf="search" matSuffix mat-icon-button aria-label="Clear" (click)="search=''">
-      <mat-icon>close</mat-icon>
-    </button>
-  </mat-form-field>
-  <button>
-  <button (click)="openModal(client)"><mat-icon>add_circle</mat-icon></button>
-</button>
+<div class="box">
+  <mat-form-field class="example-form-field" appearance="fill">
+      <mat-label>Pesquisa</mat-label>
+      <input matInput type="text" placeholder="Digite um cliente" [(ngModel)] = 'search'>
+      <button *ngIf="search" matSuffix mat-icon-button aria-label="Clear" (click)="search=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <button>
+    <button (click)="openModal(client)"><mat-icon>add_circle</mat-icon></button>
+  </button>
 
-<div class="client" *ngFor="let client of clients | filter : search ">
-  <ng-template [ngIf]="client.cnpj !=0">
-    <button (click)="openModal(client)" class="card-hover"><mat-card><h1>{{client.nomeFantasia}}</h1></mat-card></button>
-  </ng-template>
+  <table>
+    <tr>
+      <th>Número</th>
+      <th>Cliente</th>
+    </tr>
+    <tr  *ngFor="let client of clients  | filter : search">
+      <ng-template [ngIf]="client.cnpj !=0">
+        <td (click)="openModal(client)">{{client.idCliente}}</td>
+        <td (click)="openModal(client)">{{client.nomeFantasia}}</td>
+      </ng-template>
+    </tr>
+  </table>
 </div>

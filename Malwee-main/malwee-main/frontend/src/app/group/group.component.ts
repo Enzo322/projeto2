@@ -3,17 +3,15 @@ import { HttpClient} from '@angular/common/http';
 import { HttpService } from 'src/services/http.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { ModalGroupComponent } from '../modal-group/modal-group.component'; 
-export interface DialogData {
-  grupo: string;
-  id: number;
-}
 
 @Component({
   selector: 'app-group',
   templateUrl: './group.component.html',
   styleUrls: ['./group.component.scss']
 })
-export class GroupComponent implements OnInit {
+export class GroupComponent implements OnInit{
+
+
   descricao : string = "";
   grupos : Array<any> = [];
 

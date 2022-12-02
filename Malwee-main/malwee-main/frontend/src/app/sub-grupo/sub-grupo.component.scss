@@ -1,7 +1,6 @@
 .example-form-field {
-    width: 90%;
+    width: 93%;
     padding-right: 2%;
-    padding-left: 1%;
   }
 mat-grid-tile {
     background: lightblue;
@@ -12,6 +11,7 @@ mat-grid-tile {
   button{
     cursor: pointer;
     border: none;
+    background-color: white;
 }
 .example-form {
   min-width: 150px;
@@ -32,4 +32,38 @@ mat-card{
 }
 .card-hover :hover{
   background-color: #eee;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: medium;
+  margin-left: 0.5%;
+}
+th {
+padding: 15px;
+text-align: center;
+color:rgba(144,108,255,255);
+border-bottom: 3px solid rgba(144,108,255,255)
+
+}
+td {
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+
+}
+th:hover{
+  color:rgba(47,117,229,255);
+border-bottom: 3px solid rgba(47,117,229,255);
+  
+}
+td:hover{
+border-bottom: 3px solid rgba(89,177,126,255);
+}
+.box{
+  padding: 20px 20px;
+  background-color: white;
+  margin: 20px;
+  box-shadow: 1px 1px 3px rgb(78, 78, 78), 2px 1px 3px rgb(41, 41, 41);
 }

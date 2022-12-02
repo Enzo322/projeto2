@@ -1,1 +1,26 @@
-<p>modal-pedido works!</p>
+<div class="title">
+    <div>
+        <h1 mat-dialog-title>Cadastrar Pedido</h1>
+    </div>
+    <button (click) = "onNoClick()"><mat-icon>clear</mat-icon></button>
+</div>
+
+<mat-form-field appearance="fill">
+    <mat-label>Data Emissão</mat-label>
+    <input matInput [matDatepicker]="picker" [(ngModel)]="startDate">
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+</mat-form-field>
+    
+<mat-form-field appearance="fill">
+    <mat-label>Data Entrega</mat-label>
+    <input matInput [matDatepicker]="picker2" [(ngModel)]="lastDate">
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker #picker2 startView="year" [startAt]="startDate"></mat-datepicker>
+</mat-form-field>
+
+<div>
+    <h2 mat-dialog-title>Cliente</h2>
+</div>
