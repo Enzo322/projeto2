@@ -24,3 +24,44 @@
 <div>
     <h2 mat-dialog-title>Cliente</h2>
 </div>
+
+<mat-form-field appearance="fill">
+    <mat-label>Cliente</mat-label>
+    <input matInput placeholder="Digite o nome do cliente"  type="text" [(ngModel)]="nomeFantasia" maxlength="100" minlength="2">
+  </mat-form-field>
+  <br>
+<table *ngIf="nomeFantasia.length">
+  <tr>
+    <th>Nome</th>
+  </tr>
+  <tr  *ngFor="let cliente of clientes  | filter : nomeFantasia">
+    <ng-template [ngIf]="cliente.cnpj !=0">
+        <td (click)="addNomeFantasia(cliente.nomeFantasia, cliente.id)">{{cliente.nomeFantasia}}</td>
+    </ng-template>
+</tr>
+ </table>
+ <br>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Endereço</mat-label>
+        <input matInput placeholder="Digite a rua do Endereço"  type="text" [(ngModel)]="logradouro" maxlength="100" minlength="2">
+      </mat-form-field>
+      <br>
+      <table *ngIf="nomeFantasia.length ">
+        <tr>
+          <th>rua</th>
+          <th>Bairro</th>
+          <th>Cidade</th>
+          <th>Estado</th>
+        </tr>
+        <tr *ngFor="let enderecos of Endereco | filter : logradouro">
+            <td (click)="addEndereco(enderecos.logradouro, enderecos.id)">{{enderecos.rua}}</td>
+            <td (click)="addEndereco(enderecos.logradouro, enderecos.id)">{{enderecos.bairro}}</td>
+            <td (click)="addEndereco(enderecos.logradouro, enderecos.id)">{{enderecos.localidade}}</td>
+            <td (click)="addEndereco(enderecos.logradouro, enderecos.id)">{{enderecos.estado}}</td>
+        </tr> 
+       </table>
+       <br>
+
+       <mat-card-actions>
+         <button class="card" mat-raised-button color="black" (click)="PedidoAdd()" >Cadastrar</button>
+       </mat-card-actions>

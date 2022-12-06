@@ -63,7 +63,10 @@ border-bottom: 3px solid rgba(89,177,126,255);
 }
 .box{
 padding: 20px 20px;
-background-color: white;
+background-color: rgb(255, 255, 255);
 margin: 20px;
+-webkit-box-shadow: 2px 3px 13px -1px rgba(0,0,0,0.75);
+  -moz-box-shadow: 2px 3px 13px -1px rgba(0,0,0,0.75);
+  box-shadow: 2px 3px 13px -1px rgba(0,0,0,0.75);
 
 }
