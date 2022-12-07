@@ -1,6 +1,7 @@
 const Joi = require('joi');
 const { where } = require('sequelize');
 const knl = require('../knl');
+const { Op } = require("sequelize");
 
 knl.post('product', async(req, resp) => {
     const schema = Joi.object({
@@ -84,6 +85,20 @@ knl.get('product', async(req, resp) => {
     resp.end();
 });
 
+knl.get('product/:id', async(req, resp) => {//arrumar isso
+    if(req.params.id != null){
+        const user = await knl.sequelize().models.Produto.findAll({
+            where:{
+            fkGrupo: {
+                [Op.ne]: 0
+              }
+            }
+        });
+        resp.send(user);
+        resp.end();
+    }
+    
+});
 
 knl.delete('product', async(req, resp) => {
 
