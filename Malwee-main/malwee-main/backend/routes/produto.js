@@ -85,13 +85,21 @@ knl.get('product', async(req, resp) => {
     resp.end();
 });
 
-knl.get('product/:id', async(req, resp) => {//arrumar isso
-    if(req.params.id != null){
+knl.get('product/:id', async(req, resp) => {
+    if(req.params.id != 0){
         const user = await knl.sequelize().models.Produto.findAll({
             where:{
-            fkGrupo: {
-                [Op.ne]: 0
-              }
+            idProduto : req.params.id
+            }
+        });
+        resp.send(user);
+        resp.end();
+    }else{
+        const user = await knl.sequelize().models.Produto.findAll({
+            where:{
+                fkGrupo: {
+                    [Op.ne]: 0
+                  }
             }
         });
         resp.send(user);

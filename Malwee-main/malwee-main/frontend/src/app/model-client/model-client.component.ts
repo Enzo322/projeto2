@@ -122,7 +122,7 @@ async getAddress(){
   reset(){
     this.logradouro   = '';
     this.bairro       = '';
-    this.localidade       = '';
+    this.localidade     = '';
     this.uf           = '';
     this.complemento  = '';
     this.numero       = 0;

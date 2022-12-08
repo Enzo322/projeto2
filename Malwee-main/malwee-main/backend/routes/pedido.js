@@ -34,7 +34,7 @@ knl.post('pedido', async(req, resp) => {
         dtEntrega : req.body.dtEntrega,
         fkEndereco : req.body.fkEndereco,
         fkCliente : req.body.fkCliente,
-        total : 45
+        total : req.body.total
         
     });
 
@@ -44,11 +44,10 @@ knl.post('pedido', async(req, resp) => {
             quantidade : produtoPedido.quantidade,
             fkProduto : produtoPedido.fkProduto,
             valorUnitario : produtoPedido.valorUnitario,
-            acrescimo : 0.2,
-            total : parseInt(quantidade) * parseFloat(valorUnitario) * acrescimo,
-            //colocar descricao do produto usando if do fkproduto
-            descricao : "blebleble",
-            fkPedido : 1
+            acrescimo : produtoPedido.acrescimo,
+            total : produtoPedido.total,
+            descricao : produtoPedido.descricao,
+            fkPedido : pedido.idPedido
         })
 
         await result.save();
