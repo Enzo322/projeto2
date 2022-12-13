@@ -17,6 +17,7 @@ knl.post('pedido', async(req, resp) => {
             valorUnitario : Joi.number().min(0.01).required(),
             descricao : Joi.string().min(1).max(100).required(),
             acrescimo : Joi.number().min(0.01).required(),
+            desconto : Joi.number().min(0.01).required(),
             total : Joi.number().min(0.01).required()
         }))
     })
@@ -45,6 +46,7 @@ knl.post('pedido', async(req, resp) => {
             fkProduto : produtoPedido.fkProduto,
             valorUnitario : produtoPedido.valorUnitario,
             acrescimo : produtoPedido.acrescimo,
+            desconto : produtoPedido.desconto,
             total : produtoPedido.total,
             descricao : produtoPedido.descricao,
             fkPedido : pedido.idPedido
@@ -58,7 +60,7 @@ knl.post('pedido', async(req, resp) => {
 knl.get('pedido', async(req, resp) => {
     let user = await knl.sequelize().models.Pedido.findAll({
         where:{
-            idPedido: {
+            fkEndereco: {
                 [Op.ne]: 0
             }
         }});
@@ -95,7 +97,7 @@ knl.get('pedido', async(req, resp) => {
 knl.get('pedido/:id', async(req, resp) => {
     const user = await knl.sequelize().models.Produto_pedido.findAll({
         where: {
-            fkPedido: req.params.fkPedido
+            fkPedido: req.params.id
         }
     });
     resp.send(user);
@@ -106,7 +108,8 @@ knl.put('pedido', async(req,resp)=>{
 
     const result = await knl.sequelize().models.Pedido.update({
         dtEmissao : req.body.dtEmissao,
-        dtEntrega : req.body.dtEntrega
+        dtEntrega : req.body.dtEntrega,
+        
     },{
         where : {
             idPedido: req.body.idPedido
@@ -115,16 +118,15 @@ knl.put('pedido', async(req,resp)=>{
 
     for (const produtoPedido of req.body.produtoPedido){
         const result = knl.sequelize().models.Produto_pedido.update({
-            fkPedido : produtoPedido.fkPedido,
             quantidade : produtoPedido.quantidade,
-            fkProduto : produtoPedido.fkProduto,
             valorUnitario : produtoPedido.valorUnitario,
             descricao : produtoPedido.descricao,
             acrescimo : produtoPedido.acrescimo,
+            desconto : produtoPedido.desconto,
             total : produtoPedido.total
         },{
             where : {
-                idProduto_pedido: produtoPedido.idProduto_pedido
+                idProduto_pedido: produtoPedido.fkPedido
             }
         }); 
     }
@@ -133,16 +135,16 @@ knl.put('pedido', async(req,resp)=>{
         
 knl.patch('pedido', async(req, resp) => {
     if(req.body.idPedido == null || req.body.idPedido == undefined){
-        console.log(req.body.idEndereco);
-        await knl.sequelize().models.Produto_pedido.destroy({
+        await knl.sequelize().models.Produto_pedido.update({
+            fkProduto : 0,
             where : {
-                idProduto_pedido : req.body.idProduto_pedido,
+                fkPedido : req.body.fkPedido,
             }
         });
 
     }else if(req.body.idProduto_pedido == null || req.body.idProduto_pedido == undefined){
         await knl.sequelize().models.Pedido.update({
-            cnpj : 0
+            fkEndereco : 0
         },{
             where : {
                 idPedido : req.body.idPedido,

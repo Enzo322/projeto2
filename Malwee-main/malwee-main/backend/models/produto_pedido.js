@@ -32,6 +32,10 @@ module.exports = (sequelize) => {
             type : Sequelize.DECIMAL(10,2),
             allowNull : false
         },
+        desconto : {
+            type : Sequelize.DECIMAL(10,2),
+            allowNull : false
+        },
         total : {
             type : Sequelize.DECIMAL(10,2),
             allowNull : false
