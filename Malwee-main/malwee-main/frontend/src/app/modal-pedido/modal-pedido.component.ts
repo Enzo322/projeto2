@@ -23,7 +23,7 @@ export class ModalPedidoComponent implements OnInit {
   enderecos : string = '';
   logradouro : string = '';
   fkEndereco : number = 0;
-
+  produtoPedidos : Array<any> = [];
   pedidos : Array<any> = [];
   selectedGroup : number = 0;
   produtos : Array<any> = [];
@@ -40,15 +40,22 @@ export class ModalPedidoComponent implements OnInit {
   desconto : number = 1;
   valorUnitario : number = 1;
   ghostNumber : number = 0;
+
+  numero : number = 0;
   constructor(public dialogRef: MatDialogRef<ModalPedidoComponent>, private httpService : HttpService,
-    @Inject(MAT_DIALOG_DATA) private data : {idCliente: number, nomeFantasia : string,
-       cnpj : string, razaoSocial : string, dataClient : Date}, public dialog: MatDialog) { }
+    @Inject(MAT_DIALOG_DATA) private data : {idPedido: number}, public dialog: MatDialog) { }
 
   ngOnInit(): void {
+    console.log(this.data.idPedido)
+    if(this.data.idPedido != null){
+      this.numero = 1;
+    }else{
+      this.numero = 2;
+    }
     this.listaClientes();
     this.listaEndereco();
     this.listaProduto();
-
+    this.listaProdutoPedido();
   }
 
   onNoClick(){
@@ -61,7 +68,7 @@ export class ModalPedidoComponent implements OnInit {
     this.fkClientes=id;
     console.log(this.fkClientes);
     this.listaEndereco();
-    this.clientes2.push({"nome" : this.nomeFantasia, "dataEmissao" : this.startDate, "dataEntrega":this.lastDate})
+    this.clientes2.push({"nome" : this.nomeFantasia, "dtEmissao" : this.startDate, "dtEntrega":this.lastDate})
   }
   
   async listaClientes(){
@@ -78,6 +85,10 @@ export class ModalPedidoComponent implements OnInit {
     console.log(this.Endereco);
   
   }
+  async listaProdutoPedido(){
+    this.produtoPedidos = await this.httpService.get(`pedido/${this.data.idPedido}`);
+  
+  }
   addEndereco(logradouro: string, id: number){
     this.logradouro  = logradouro;
     this.fkEndereco  = id;
@@ -89,13 +100,6 @@ export class ModalPedidoComponent implements OnInit {
     this.valorUnitario = preco
     this.produtos2 = await this.httpService.get(`product/${idProduto}`);
 
-  }
-
-  async PedidoAdd(){
-    console.log("Sub-grupo adicionado");
-    console.log(this.lastDate);
-    this.pedidos = await this.httpService.post('pedido', {dtEmissao: this.startDate, dtEntrega: this.lastDate });
-    this.dialogRef.close();
   }
 
   calculaTotal(){
@@ -122,7 +126,9 @@ export class ModalPedidoComponent implements OnInit {
   }
 
   async post(){
-    this.pedidos = await this.httpService.post('pedido',{})
+    this.pedidos = await this.httpService.post('pedido',{dtEmissao: this.startDate, dtEntrega : this.lastDate,
+    fkEndereco :this.fkEndereco, fkCliente :this.fkClientes, total :this.total, produtoPedido : this.produtos3,
+  })
   }
 
 }
