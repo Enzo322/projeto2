@@ -1,0 +1,25 @@
+<div class="box">
+  <mat-form-field class="example-form-field" appearance="fill">
+      <mat-label>Pesquisa</mat-label>
+      <input matInput type="text" placeholder="Digite um sub-grupo" [(ngModel)] = 'search'>
+      <button *ngIf="search" matSuffix mat-icon-button aria-label="Clear" (click)="search=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <button>
+    <button (click)="openModal(subGrupo)"><mat-icon>add_circle</mat-icon></button>
+  </button>
+
+    <table>
+      <tr>
+        <th>Número</th>
+        <th>SubGrupo</th>
+        <th>Grupo</th>
+      </tr>
+      <tr  *ngFor="let subGrupo of subGrupos  | filter : search">
+          <td (click)="openModal(subGrupo)">{{subGrupo.idSub}}</td>
+          <td (click)="openModal(subGrupo)">{{subGrupo.group_description}}</td>
+          <td (click)="openModal(subGrupo)">{{subGrupo.tipoProduto}}</td>
+      </tr>
+    </table>
+</div>

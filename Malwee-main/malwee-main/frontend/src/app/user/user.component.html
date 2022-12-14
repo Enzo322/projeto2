@@ -1,0 +1,43 @@
+<div *ngFor="let user of users; let islast = last; let i = index">
+    <ng-template [ngIf]="islast">
+        <h1>Usuários cadastrados : {{i+1}}</h1>
+    </ng-template>
+</div>
+<div class="cad-user">
+    <div class="cad-user-2">
+        <h2>Novo Usuário</h2>
+        <mat-form-field appearance="legacy">
+            <mat-label>Nome</mat-label>
+            <input matInput placeholder="digite seu nome:" [(ngModel)]="name">
+        </mat-form-field>
+
+        <mat-form-field appearance="legacy">
+            <mat-label>Nome de usuário</mat-label>
+            <input matInput placeholder="Ex: Doug198las" [(ngModel)]="username">
+        </mat-form-field>
+
+        <mat-form-field appearance="legacy">
+            <mat-label>Senha</mat-label>
+            <input matInput placeholder="digite sua senha" type="password" [(ngModel)]="password">
+        </mat-form-field>
+
+        <mat-form-field appearance="legacy">
+            <mat-label>Confirmação</mat-label>
+            <input matInput placeholder="confirme sua senha" type="password" [(ngModel)]="cpassword">
+        </mat-form-field>
+
+        <div class="btn" >
+            <div class="conf-can">
+                <button mat-raised-button color="primary" (click) = "postUser()">Confirmar</button>
+                <button mat-raised-button color="primary" (click) = "clear()">Cancelar</button>
+            </div>
+
+            <div *ngFor="let user of users; let islast = last">
+                <ng-template [ngIf]="islast">
+                    <button mat-button color="primary" (click) = "openModal1(user)">Trocar a senha</button>
+                    <button mat-button color="primary" (click) = "openModal2(user)">Deletar usuario</button>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

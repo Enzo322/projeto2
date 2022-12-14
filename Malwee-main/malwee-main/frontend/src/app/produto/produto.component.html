@@ -1,0 +1,30 @@
+<div class="box">
+  <mat-form-field class="example-form-field" appearance="fill">
+      <mat-label>Pesquisa</mat-label>
+      <input matInput type="text" placeholder="Digite um produto" [(ngModel)] = 'search'>
+      <button *ngIf="search" matSuffix mat-icon-button aria-label="Clear" (click)="search=''">
+        <mat-icon>close</mat-icon>
+      </button>
+  </mat-form-field>
+    <button (click)="openModal(produto)"><mat-icon>add_circle</mat-icon></button>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Grupo</th>
+      <th>Sub Grupo</th>
+      <th>Descrição</th>
+      <th>Coleção</th>
+      <th>Preço</th>
+    </tr>
+    <tr  *ngFor="let produto of produtos  | filter : search">
+      <ng-template [ngIf]="produto.fkGrupo != 0">
+        <td (click)="openModal(produto)">{{produto.idProduto}}</td>
+        <td (click)="openModal(produto)">{{produto.group_description}}</td>
+        <td (click)="openModal(produto)">{{produto.subGroup_description}}</td>
+        <td (click)="openModal(produto)">{{produto.descricao}}</td>
+        <td (click)="openModal(produto)">{{produto.colection_description}}</td>
+        <td (click)="openModal(produto)">{{produto.preco}}</td>
+      </ng-template>
+    </tr>
+  </table>
+</div>

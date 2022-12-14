@@ -1,0 +1,71 @@
+.example-form-field {
+  width: 93%;
+  padding-right: 2%;
+}
+mat-grid-tile {
+  background: lightblue;
+  padding-left: 45%;
+  padding-bottom: 20%;
+  margin-left: 1%;
+}
+button{
+  cursor: pointer;
+  border: none;
+  background-color: white;
+}
+.example-form {
+min-width: 150px;
+max-width: 500px;
+width: 100%;
+}
+
+.example-full-width {
+width: 100%;
+}
+h1{
+font-family: "Neo Sans", sans-serif;
+}
+mat-card{
+width: 1000px;
+text-align: left;
+margin-left: 0.5%;
+}
+.card-hover :hover{
+background-color: #eee;
+}
+
+table {
+border-collapse: collapse;
+width: 100%;
+font-size: medium;
+margin-left: 0.5%;
+}
+th {
+padding: 15px;
+text-align: center;
+color:rgba(144,108,255,255);
+border-bottom: 3px solid rgba(144,108,255,255)
+
+}
+td {
+padding: 15px;
+text-align: center;
+border-bottom: 1px solid #ddd;
+
+}
+th:hover{
+color:rgba(47,117,229,255);
+border-bottom: 3px solid rgba(47,117,229,255);
+
+}
+td:hover{
+border-bottom: 3px solid rgba(89,177,126,255);
+}
+.box{
+padding: 20px 20px;
+background-color: white;
+margin: 20px;
+-webkit-box-shadow: 2px 3px 13px -1px rgba(0,0,0,0.75);
+  -moz-box-shadow: 2px 3px 13px -1px rgba(0,0,0,0.75);
+  box-shadow: 2px 3px 13px -1px rgba(0,0,0,0.75);
+}

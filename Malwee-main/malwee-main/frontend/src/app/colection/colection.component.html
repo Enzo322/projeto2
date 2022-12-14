@@ -1,0 +1,23 @@
+<div class="box">
+  <mat-form-field class="example-form-field" appearance="fill">
+      <mat-label>Pesquisa</mat-label>
+      <input matInput type="text" placeholder="Digite uma coleção" [(ngModel)] = 'search'>
+      <button *ngIf="search" matSuffix mat-icon-button aria-label="Clear" (click)="search=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <button>
+    <button (click)="openModal(colection)"><mat-icon>add_circle</mat-icon></button>
+  </button>
+
+  <table>
+    <tr>
+      <th>Número</th>
+      <th>Coleção</th>
+    </tr>
+    <tr  *ngFor="let colection of colections  | filter : search">
+        <td (click)="openModal(colection)">{{colection.idColecao}}</td>
+        <td (click)="openModal(colection)">{{colection.descricao}}</td>
+    </tr>
+  </table>
+</div>
