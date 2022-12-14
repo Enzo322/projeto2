@@ -132,8 +132,9 @@ export class ModalPedidoComponent implements OnInit {
 
   async post(){
     this.pedidos = await this.httpService.post('pedido',{dtEmissao: this.startDate, dtEntrega : this.lastDate,
-    fkEndereco :this.fkEndereco, fkCliente :this.fkClientes, total :this.total, produtoPedido : this.produtos3,
+    fkEndereco :this.fkEndereco, fkCliente :this.fkClientes, total :this.total2, produtoPedido : this.produtos3,
   })
+  this.onNoClick()
   }
 
   async put(){
@@ -142,9 +143,11 @@ export class ModalPedidoComponent implements OnInit {
 
     this.pedidos = await this.httpService.put('pedido',{dtEmissao : this.startDate, dtEntrega : this.lastDate, 
       produtoPedido : this.produtos3, idPedido : this.data.idPedido})
+      this.onNoClick()
   }
   async delete(){
     await this.httpService.patch('pedido',{fkPedido : this.data.idPedido, idPedido : this.data.idPedido})
+    this.onNoClick()
   }
 
 }

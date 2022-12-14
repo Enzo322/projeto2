@@ -178,63 +178,68 @@
   </div>
   <mat-tab-group>
     <mat-tab label="Pedido">
-      <app-dropdown [array]="produtoPedidos" [idField]="'idProduto_pedido'" [textField]="'descricao'" 
-      [title]="''" [(ngModel)]="selectedGroup"></app-dropdown> 
+      <div class="center">
+        <mat-form-field appearance="fill">
+          <mat-label>Data Emissão</mat-label>
+          <input matInput [matDatepicker]="picker" [(ngModel)]="startDate">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+        </mat-form-field>
+      
+        <mat-form-field appearance="fill">
+          <mat-label>Data Entrega</mat-label>
+          <input matInput [matDatepicker]="picker2" [(ngModel)]="lastDate">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2 startView="year" [startAt]="startDate"></mat-datepicker>
+        </mat-form-field>
 
-      <div *ngIf="selectedGroup > 0">
-        <div *ngFor="let produtoPedido of produtoPedidos">
-          <div *ngIf="selectedGroup == produtoPedido.idProduto_pedido">
-            <h3 (click)="addPreco(produtoPedido.valorUnitario, produtoPedido.descricao)">{{produtoPedido.valorUnitario}}</h3>
+        <app-dropdown [array]="produtoPedidos" [idField]="'idProduto_pedido'" [textField]="'descricao'" 
+        [title]="''" [(ngModel)]="selectedGroup"></app-dropdown> 
+
+        <div *ngIf="selectedGroup > 0">
+          <div *ngFor="let produtoPedido of produtoPedidos">
+            <div *ngIf="selectedGroup == produtoPedido.idProduto_pedido">
+              <h3 (click)="addPreco(produtoPedido.valorUnitario, produtoPedido.descricao)">{{produtoPedido.valorUnitario}}</h3>
+            </div>
           </div>
         </div>
-      </div>
-      <mat-form-field appearance="legacy">
-        <mat-label>Quantidade</mat-label>
-        <input matInput placeholder="digite a quantidade:" [(ngModel)]="qtd" (blur)="calculaTotal()">
-      </mat-form-field>
-    
-      <mat-form-field appearance="legacy">
-        <mat-label>Acrescimo (%)</mat-label>
-        <input matInput placeholder="digite o acrescimo:" [(ngModel)]="acrescimo" (blur)="calculaTotal()">
-      </mat-form-field>
-    
-      <mat-form-field appearance="legacy">
-        <mat-label>Desconto (%)</mat-label>
-        <input matInput placeholder="digite o desconto:" [(ngModel)]="desconto" (blur)="calculaTotal()">
-      </mat-form-field>
-    
-      <mat-form-field appearance="legacy">
-        <mat-label>Total</mat-label>
-        <input matInput [(ngModel)]="total">
-      </mat-form-field>
-    
-      <mat-form-field appearance="fill">
-        <mat-label>Data Emissão</mat-label>
-        <input matInput [matDatepicker]="picker" [(ngModel)]="startDate">
-        <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
-      </mat-form-field>
-    
-      <mat-form-field appearance="fill">
-        <mat-label>Data Entrega</mat-label>
-        <input matInput [matDatepicker]="picker2" [(ngModel)]="lastDate">
-        <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-        <mat-datepicker #picker2 startView="year" [startAt]="startDate"></mat-datepicker>
-      </mat-form-field>
-    
-      <div mat-dialog-actions>
-        <button mat-raised-button (click) = "put()">Confirmar</button>
+        <mat-form-field appearance="legacy">
+          <mat-label>Quantidade</mat-label>
+          <input matInput placeholder="digite a quantidade:" [(ngModel)]="qtd" (blur)="calculaTotal()">
+        </mat-form-field>
+      
+        <mat-form-field appearance="legacy">
+          <mat-label>Acrescimo (%)</mat-label>
+          <input matInput placeholder="digite o acrescimo:" [(ngModel)]="acrescimo" (blur)="calculaTotal()">
+        </mat-form-field>
+      
+        <mat-form-field appearance="legacy">
+          <mat-label>Desconto (%)</mat-label>
+          <input matInput placeholder="digite o desconto:" [(ngModel)]="desconto" (blur)="calculaTotal()">
+        </mat-form-field>
+      
+        <mat-form-field appearance="legacy">
+          <mat-label>Total</mat-label>
+          <input matInput [(ngModel)]="total" readonly="true">
+        </mat-form-field>
+      
+        <div mat-dialog-actions>
+          <button mat-raised-button (click) = "put()">Confirmar</button>
+        </div>
       </div>
     </mat-tab>
     <mat-tab label="Deletar">
-      <h1>Deseja mesmo deletar?</h1>
-
-            <div mat-dialog-actions>
-                <button mat-raised-button (click) = "delete()">Confirmar</button>
-                <button mat-raised-button (click)="onNoClick()">Cancelar</button>
-            </div>
+      <div class="center">
+        <h1>Deseja mesmo deletar?</h1>
+      </div>
+      <div class="title">
+        <div mat-dialog-actions>
+          <button mat-raised-button (click) = "delete()">Confirmar</button>
+          <button mat-raised-button (click)="onNoClick()">Cancelar</button>
+        </div>
+      </div>
     </mat-tab>
   </mat-tab-group>
   
