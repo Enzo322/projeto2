@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import {FormControl} from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SrvRecord } from 'dns';
+import * as moment from 'moment';
 import { HttpService } from 'src/services/http.service';
 @Component({
   selector: 'app-modal-pedido',
@@ -68,7 +69,13 @@ export class ModalPedidoComponent implements OnInit {
     this.fkClientes=id;
     console.log(this.fkClientes);
     this.listaEndereco();
+    
     this.clientes2.push({"nome" : this.nomeFantasia, "dtEmissao" : this.startDate, "dtEntrega":this.lastDate})
+    this.clientes2.forEach(element =>{
+      console.log("Element" + element);
+      element.dtEmissao = moment(element.dtEmissao).format('DD/MM/YYYY');
+      element.dtEntrega = moment(element.dtEntrega).format('DD/MM/YYYY');
+    })
   }
   
   async listaClientes(){
@@ -142,6 +149,7 @@ export class ModalPedidoComponent implements OnInit {
 
     this.pedidos = await this.httpService.put('pedido',{dtEmissao : this.startDate, dtEntrega : this.lastDate, 
       produtoPedido : this.produtos3, idPedido : this.data.idPedido})
+      this.onNoClick();
   }
   async delete(){
     await this.httpService.patch('pedido',{fkPedido : this.data.idPedido, idPedido : this.data.idPedido})

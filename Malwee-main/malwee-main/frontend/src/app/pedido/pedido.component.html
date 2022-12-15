@@ -19,8 +19,8 @@
         <td (click)="openModal(pedido)">{{pedido.idPedido}}</td>
         <td (click)="openModal(pedido)">{{pedido.produtoPedido_description}}</td>
         <td (click)="openModal(pedido)">{{pedido.client_description}}</td>
-        <td (click)="openModal(pedido)">{{pedido.dtEmissao | date: "dd/mm/yyyy"}}</td>
-        <td (click)="openModal(pedido)">{{pedido.dtEntrega | date: "dd/mm/yyyy"}}</td>
+        <td (click)="openModal(pedido)">{{pedido.dtEmissao}}</td>
+        <td (click)="openModal(pedido)">{{pedido.dtEntrega}}</td>
     </tr>
   </table>
 </div>

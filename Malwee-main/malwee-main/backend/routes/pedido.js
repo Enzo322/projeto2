@@ -107,8 +107,9 @@ knl.get('pedido/:id', async(req, resp) => {
 knl.put('pedido', async(req,resp)=>{
 
     const result = await knl.sequelize().models.Pedido.update({
-        dtEmissao : req.body.dtEmissao,
+        
         dtEntrega : req.body.dtEntrega,
+        dtEmissao : req.body.dtEmissao,
         
     },{
         where : {

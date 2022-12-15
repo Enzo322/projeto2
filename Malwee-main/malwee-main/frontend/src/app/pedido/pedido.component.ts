@@ -4,6 +4,7 @@ import { HttpService } from 'src/services/http.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { ModelProdutoComponent } from '../model-produto/model-produto.component';
 import { ModalPedidoComponent } from '../modal-pedido/modal-pedido.component';
+import * as moment from 'moment';
 @Component({
   selector: 'app-pedido',
   templateUrl: './pedido.component.html',
@@ -23,12 +24,20 @@ export class PedidoComponent implements OnInit {
 
   async get(){
     this.pedidos = await this.httpService.get('pedido');
+    this.pedidos.forEach(element =>{
+      console.log("Element" + element);
+      element.dtEmissao = moment(element.dtEmissao).format('DD/MM/YYYY');
+      element.dtEntrega = moment(element.dtEntrega).format('DD/MM/YYYY');
+    })
   }
 
   openModal(pedido : any) : any{
     const ref = this.dialog.open(ModalPedidoComponent, {
-      width: '550px',
+      width: '600px',
       data: pedido
+    })
+    ref.afterClosed().subscribe(result => {
+      this.get();
     })
   }
 }
